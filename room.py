@@ -40,8 +40,8 @@ class Room:
         print(self.get_name())
         print(self.get_description())
         for direction in self.linked_rooms:
-            cave = self.linked_rooms[direction]
-            print(f"The {cave.get_name()} is {direction}")
+            room = self.linked_rooms[direction]
+            print(f"The {room.get_name()} is {direction}")
 
     def move(self, direction):
         if direction in self.linked_rooms:
@@ -49,5 +49,5 @@ class Room:
         else: 
             print("You can't go that way")
             return self
-#hello
+
     

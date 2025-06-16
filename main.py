@@ -6,90 +6,99 @@ from item import Item
 entrance = Room("Entrance")
 entrance.set_description("A small, stone-walled room.")
 
-westPassage = Room("West Passage")
-westPassage.set_description("A passageway to the west.")
+west_passage = Room("West Passage")
+west_passage.set_description("A passageway to the west.")
 
-eastPassage = Room("East Passage")
-eastPassage.set_description("A passageway to the east.")
+east_passage = Room("East Passage")
+east_passage.set_description("A passageway to the east.")
 
-weaponRoom = Room("Weapon Room")
-weaponRoom.set_description("A silver sword lays on the floor, beckoning your wielding.")
+weapon_room = Room("Weapon Room")
+weapon_room.set_description("A silver sword lays on the floor, beckoning your wielding.")
 
-bossPassage = Room("Boss Passage")
-bossPassage.set_description("The way to the Demon King.")
+boss_passage = Room("Boss Passage")
+boss_passage.set_description("The way to the Demon King.")
 
-grandHall = Room("Grand Hall")
-grandHall.set_description("Where the Demon King lies.")
+grand_hall = Room("Grand Hall")
+grand_hall.set_description("Where the Demon King lies.")
 
-mainHallway = Room("Main Hallway")
-mainHallway.set_description("The castle's main hallway.")
+main_hallway = Room("Main Hallway")
+main_hallway.set_description("The castle's main hallway.")
 
 storage = Room("Storage")
 storage.set_description("A storage room.")
 
-prisonCell = Room("Prison Cell")
-prisonCell.set_description("A prison cell - something gleams through a crack in the wall.")
+prison_cell = Room("Prison Cell")
+prison_cell.set_description("A prison cell - something gleams through a crack in the wall.")
 
 balcony = Room("Balcony")
 balcony.set_description("The desolate landscape left in ruins reminds you of your objective.")
 
-keyPassage = Room("North Passage")
-keyPassage.set_description("A passageway in the north.")
+key_passage = Room("North Passage")
+key_passage.set_description("A passageway in the north.")
 
-keyRoom = Room("Empty Room?")
-keyRoom.set_description("A golden key lies on the floor.")
+key_room = Room("Empty Room?")
+key_room.set_description("A golden key lies on the floor.")
 
 #Linking rooms
-entrance.link_room(westPassage, "west")
-entrance.link_room(eastPassage, "east")
-entrance.link_room(bossPassage, "north")
+entrance.link_room(west_passage, "west")
+entrance.link_room(east_passage, "east")
+entrance.link_room(boss_passage, "north")
 
-bossPassage.link_room(entrance, "south")
-bossPassage.link_room(grandHall, "north")
+boss_passage.link_room(entrance, "south")
+boss_passage.link_room(grand_hall, "north")
 
-grandHall.link_room(bossPassage, "south")
+grand_hall.link_room(boss_passage, "south")
 
-westPassage.link_room(entrance, "east")
-westPassage.link_room(weaponRoom, "south")
-westPassage.link_room(prisonCell, "north")
+west_passage.link_room(entrance, "east")
+west_passage.link_room(weapon_room, "south")
+west_passage.link_room(prison_cell, "north")
 
-prisonCell.link_room(westPassage, "south")
+prison_cell.link_room(west_passage, "south")
 
-weaponRoom.link_room(westPassage, "north")
+weapon_room.link_room(west_passage, "north")
 
-eastPassage.link_room(entrance, "west")
-eastPassage.link_room(mainHallway, "north")
+east_passage.link_room(entrance, "west")
+east_passage.link_room(main_hallway, "north")
 
-mainHallway.link_room(eastPassage, "south")
-mainHallway.link_room(storage, "east")
-mainHallway.link_room(balcony, "north")
+main_hallway.link_room(east_passage, "south")
+main_hallway.link_room(storage, "east")
+main_hallway.link_room(balcony, "north")
 
-storage.link_room(mainHallway, "west")
+storage.link_room(main_hallway, "west")
 
-balcony.link_room(mainHallway, "east")
-balcony.link_room(keyPassage, "west")
+balcony.link_room(main_hallway, "east")
+balcony.link_room(key_passage, "west")
 
-keyPassage.link_room(balcony, "north")
-keyPassage.link_room(keyRoom, "south")
+key_passage.link_room(balcony, "north")
+key_passage.link_room(key_room, "south")
 
-keyRoom.link_room(keyPassage, "north")
+key_room.link_room(key_passage, "north")
 
 #Coding the Enemy
-lower_demon = Enemy("Lower demon", "A low-class demon", 30, 10)
-westPassage.set_character(lower_demon)
-eastPassage.set_character(lower_demon)
+lower_demon = Enemy("LOWER DEMON", "A low-class demon", 30, 10)
+west_passage.set_character(lower_demon)
+east_passage.set_character(lower_demon)
 
-upper_demon = Enemy("Upper demon", "An upper-class demon", 80,10)
-bossPassage.set_character(upper_demon)
+upper_demon = Enemy("UPPER DEMON", "An upper-class demon", 80,10)
+main_hallway.set_character(upper_demon)
+
+gargoyle = Enemy("GARGOYLE", "The castle sentry", 45, 20)
+balcony.set_character(gargoyle)
+
+undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 25)
+key_passage.set_character(undead_knight)
+
+demon_king = Enemy("THE DEMON KING", "The final boss", 200, 50)
+grand_hall.set_character(demon_king)
 
 jester = Friend("Jester", "The castle Jester")
 jester.set_conversation("Gidday")
-keyRoom.set_character(jester)
+key_room.set_character(jester)
 
 #Coding items 
 sword = Item("Sword")
 sword.set_item_description("A simple silver sword")
-weaponRoom.set_item(sword)
+weapon_room.set_item(sword)
 
 health_potion = Item("Health potion")
 health_potion.set_item_description("Heals 10 HP")
@@ -97,15 +106,16 @@ storage.set_item(health_potion)
 
 key = Item("Key")
 key.set_item_description("I wonder what this opens")
-keyRoom.set_item(key)
+key_room.set_item(key)
 
 player_health = 100
 player_damage = 10
-bag = []
+bag = {}
 
 current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
 dead = False
+valid_input= False
 while dead == False:
     print("\n")
     current_room.get_details()
@@ -124,8 +134,8 @@ while dead == False:
             print("You can't leave, there is an enemy in the room!")
     elif room_item is not None:
         if command == "take":
-            print(f"You put the {room_item.get_name()} in your bag")
-            bag.append(room_item)
+            print(f"You put the {room_item.get_item_name()} in your bag")
+            bag[room_item.get_item_name()] = room_item
             current_room.set_item(None)
     elif inhabitant is not None:
         if command == "talk":
@@ -149,6 +159,28 @@ while dead == False:
                 inhabitant.pat()
         else:
             print("Please enter a valid command")
+    elif command == "inventory":
+        for key,value in bag.items():
+            print(key + ": " + value.get_item_description())
+        while valid_input == False:
+            print("Which item would you like to access? (Type none to exit)")
+            command = input("> ")
+            if command in bag:
+                choice_item = command
+                print("What would you like to do?")
+                command = input("> ")
+                if command == "inspect":
+                    choice_item.describe()
+                    valid_input = True
+                elif command == "use":
+                    print(f"You use {choice_item}!")
+                    valid_input = True
+                else:
+                    print("Invalid input.")
+            elif command == "none":
+                valid_input = True
+            else: 
+                print("Invalid input.")
     else:
         print("Please enter a valid command")
         
