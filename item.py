@@ -1,6 +1,7 @@
 class Item:
-    def __init__(self, name):
+    def __init__(self, name, item_type):
         self.name = name
+        self.item_type = item_type
         self.description = None
 
     def set_item_name(self, name):
@@ -8,6 +9,12 @@ class Item:
 
     def get_item_name(self):
         return self.name
+    
+    def set_item_type(self, item_type):
+        self.item_type = item_type
+
+    def get_item_type(self):
+        return self.item_type
     
     def set_item_description(self, description):
         self.description = description
@@ -17,7 +24,10 @@ class Item:
 
     def describe(self):
         print(f"The [{self.name}] is here - {self.description}")
+        print(f"This item can be used as a [{self.item_type}]")
 
+
+    
     
         
 

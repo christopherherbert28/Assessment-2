@@ -96,15 +96,15 @@ jester.set_conversation("Gidday")
 key_room.set_character(jester)
 
 #Coding items 
-sword = Item("Sword")
+sword = Item("Sword", "weapon")
 sword.set_item_description("A simple silver sword")
 weapon_room.set_item(sword)
 
-health_potion = Item("Health potion")
-health_potion.set_item_description("Heals 10 HP")
+health_potion = Item("Health potion", "consumable")
+health_potion.set_item_description("Heals 100 HP")
 storage.set_item(health_potion)
 
-key = Item("Key")
+key = Item("Golden Key", "key")
 key.set_item_description("I wonder what this opens")
 key_room.set_item(key)
 
@@ -181,6 +181,7 @@ while dead == False:
                 valid_input = True
             else: 
                 print("Invalid input.")
+        valid_input == False
     else:
         print("Please enter a valid command")
         
