@@ -96,21 +96,22 @@ jester.set_conversation("Gidday")
 key_room.set_character(jester)
 
 #Coding items 
-sword = Item("Sword", "weapon")
+sword = Item("Sword", "WEAPON")
 sword.set_item_description("A simple silver sword")
 weapon_room.set_item(sword)
 
-health_potion = Item("Health potion", "consumable")
+health_potion = Item("Health potion", "CONSUMABLE")
 health_potion.set_item_description("Heals 100 HP")
 storage.set_item(health_potion)
 
-key = Item("Golden Key", "key")
+key = Item("Golden Key", "KEY")
 key.set_item_description("I wonder what this opens")
 key_room.set_item(key)
 
 player_health = 100
 player_damage = 10
 bag = {}
+door_lock = True
 
 current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
@@ -128,7 +129,10 @@ while dead == False:
     command = input("> ")
     
     if command in possible_directions:
-        if inhabitant is None or isinstance(inhabitant, Friend) == True:
+        if current_room.get_name == "Boss Passage" and command == "north":
+            if door_lock == True:
+                print("The door is locked. You can't go there.")
+        elif inhabitant is None or isinstance(inhabitant, Friend) == True:
             current_room = current_room.move(command)
         else: 
             print("You can't leave, there is an enemy in the room!")
@@ -173,7 +177,20 @@ while dead == False:
                     choice_item.describe()
                     valid_input = True
                 elif command == "use":
-                    print(f"You use {choice_item}!")
+                    if choice_item.get_item_type() == "KEY":
+                        if current_room.get_name == "Boss Passage":
+                            print(f"You use the [{choice_item.get_item_name}]!")
+                            door_lock = False
+                            del bag[choice_item]
+                        else:
+                            print("You can't use that here.")
+                    elif choice_item.get_item_type() == "CONSUMABLE":
+                        print(f"You use the [{choice_item.get_item_name}]!")
+                        player_health = 100
+                        print("HP maxed out.")
+                        del bag[choice_item]
+                    else:
+                        print("You can't use that item.")
                     valid_input = True
                 else:
                     print("Invalid input.")
