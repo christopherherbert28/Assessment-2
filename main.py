@@ -164,9 +164,9 @@ while dead == False:
         else:
             print("Please enter a valid command")
     elif command == "inventory":
-        for key,value in bag.items():
-            print(key + ": " + value.get_item_description())
         while valid_input == False:
+            for key,value in bag.items():
+            print(key + ": " + value.get_item_description())
             print("Which item would you like to access? (Type none to exit)")
             command = input("> ")
             if command in bag:
@@ -198,7 +198,7 @@ while dead == False:
                 valid_input = True
             else: 
                 print("Invalid input.")
-        valid_input == False
+        valid_input = False
     else:
         print("Please enter a valid command")
         
