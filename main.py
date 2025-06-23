@@ -166,7 +166,7 @@ while dead == False:
             print("Which item would you like to access? (Type none to exit)")
             command = input("> ")
             if command in bag:
-                choice_item = command
+                choice_item = bag[command]
                 print("What would you like to do?")
                 command = input("> ")
                 if command == "inspect":
