@@ -106,7 +106,7 @@ storage.set_item(health_potion)
 
 key = Item("Golden Key", "KEY")
 key.set_item_description("I wonder what this opens")
-key_room.set_item(key)
+main_hallway.set_item(key)
 
 player_health = 100
 player_damage = 10
@@ -116,7 +116,8 @@ door_lock = True
 current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
 dead = False
-valid_input= False
+valid_input = False
+
 while dead == False:
     print("\n")
     current_room.get_details()
@@ -129,9 +130,11 @@ while dead == False:
     command = input("> ")
     
     if command in possible_directions:
-        if current_room.get_name == "Boss Passage" and command == "north":
+        if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
                 print("The door is locked. You can't go there.")
+            else: 
+                current_room = current_room.move(command)
         elif inhabitant is None or isinstance(inhabitant, Friend) == True:
             current_room = current_room.move(command)
         else: 
@@ -147,7 +150,9 @@ while dead == False:
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
                 print("The fight begins!")
-                if inhabitant.fight(player_damage, player_health) == True:
+                #fight_result, player_health = inhabitant.fight(player_damage, player_health)
+                print(inhabitant.fight(player_damage, player_health))
+                if fight_result == True:
                     print(f"You defeated {inhabitant.name}!")
                     current_room.set_character(None)
                 else:
@@ -166,10 +171,11 @@ while dead == False:
     elif command == "inventory":
         while valid_input == False:
             for key,value in bag.items():
-            print(key + ": " + value.get_item_description())
+                print(key + ": " + value.get_item_description())
             print("Which item would you like to access? (Type none to exit)")
             command = input("> ")
             if command in bag:
+                choice_key = command
                 choice_item = bag[command]
                 print("What would you like to do?")
                 command = input("> ")
@@ -178,17 +184,17 @@ while dead == False:
                     valid_input = True
                 elif command == "use":
                     if choice_item.get_item_type() == "KEY":
-                        if current_room.get_name == "Boss Passage":
-                            print(f"You use the [{choice_item.get_item_name}]!")
+                        if current_room.get_name() == "Boss Passage":
+                            print(f"You use the [{choice_item.get_item_name()}]!")
                             door_lock = False
-                            del bag[choice_item]
+                            del bag[choice_key]
                         else:
                             print("You can't use that here.")
                     elif choice_item.get_item_type() == "CONSUMABLE":
-                        print(f"You use the [{choice_item.get_item_name}]!")
+                        print(f"You use the [{choice_item.get_item_name()}]!")
                         player_health = 100
                         print("HP maxed out.")
-                        del bag[choice_item]
+                        del bag[choice_key]
                     else:
                         print("You can't use that item.")
                     valid_input = True
