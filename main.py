@@ -1,6 +1,7 @@
 from room import Room
 from character import Friend, Enemy
 from item import Item
+import time
 
 #Defining rooms
 entrance = Room("Entrance")
@@ -118,6 +119,12 @@ current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
 dead = False
 valid_input = False
+print("WELCOME TO THE GAME...")
+time.sleep(2)
+print("YOUR TOWN HAS BEEN DESTROYED BY THE DEMON KING - NOW YOU HAVE COME FOR REVENGE")
+time.sleep(3)
+print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.")
+time.sleep(3)
 
 while dead == False:
     print("\n")
@@ -128,9 +135,20 @@ while dead == False:
         inhabitant.describe()
     elif room_item is not None:
         room_item.describe()
+    print("Type [Help] for a list of commands!")
     command = input("> ")
     
-    if command in possible_directions:
+    if command == "Help":
+        print("""
+HELP MENU            
+MOVEMENT:
+YOU CAN MOVE BETWEEN ROOMS USING COMPASS DIRECTIONS (i.e. north, south, east, west)
+N.B. YOU CAN'T LEAVE A ROOM IF THERE IS AN ENEMY PRESENT.
+
+GENERAL COMMANDS:
+[inventory] - Opens your inventory where you can see and access your items
+""")
+    elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
                 print("The door is locked. You can't go there.")
@@ -183,6 +201,8 @@ while dead == False:
                 choice_key = command
                 choice_item = bag[command]
                 print("What would you like to do?")
+                print("Type [inspect] to see the item's description.")
+                print("Type [use] to use the selected item.")
                 command = input("> ")
                 if command == "inspect":
                     choice_item.describe()
