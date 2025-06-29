@@ -110,6 +110,7 @@ main_hallway.set_item(key)
 
 player_health = 100
 player_damage = 10
+sword_damage = 2
 bag = {}
 door_lock = True
 
@@ -150,10 +151,13 @@ while dead == False:
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
                 print("The fight begins!")
-                #fight_result, player_health = inhabitant.fight(player_damage, player_health)
-                print(inhabitant.fight(player_damage, player_health))
+                if "Sword" in bag:
+                    fight_result, player_health = inhabitant.fight(player_damage*sword_damage, player_health)
+                else: 
+                    fight_result, player_health = inhabitant.fight(player_damage, player_health)
                 if fight_result == True:
                     print(f"You defeated {inhabitant.name}!")
+                    print(f"Player health: [{player_health} HP]")
                     current_room.set_character(None)
                 else:
                     print(f"{inhabitant.name} defeated you.")
@@ -174,6 +178,7 @@ while dead == False:
                 print(key + ": " + value.get_item_description())
             print("Which item would you like to access? (Type none to exit)")
             command = input("> ")
+
             if command in bag:
                 choice_key = command
                 choice_item = bag[command]
