@@ -145,9 +145,17 @@ MOVEMENT:
 YOU CAN MOVE BETWEEN ROOMS USING COMPASS DIRECTIONS (i.e. north, south, east, west)
 N.B. YOU CAN'T LEAVE A ROOM IF THERE IS AN ENEMY PRESENT.
 
+FIGHTING:
+THERE ARE TWO ATTACK TYPES: [heavy] and [light]
+[heavy] - 3x damage with a 50% success rate
+[light] - 1x damage with a 100% success rate
+              
 GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
+[fight] - Begins a fight if there is an enemy in the room
+[take] - Stores an item in your inventory if there is one in the room
 """)
+        input("Press enter to leave.")
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
@@ -178,11 +186,6 @@ GENERAL COMMANDS:
                     dead = True
             else:
                 print(f"{inhabitant.name} does not wish to fight.")
-        elif command == "pat":
-            if isinstance(inhabitant, Enemy) == True:
-                print("I wouldn't do that if I were you.")
-            else:
-                inhabitant.pat()
         else:
             print("Please enter a valid command")
     elif room_item is not None:
@@ -191,6 +194,8 @@ GENERAL COMMANDS:
             bag[room_item.get_item_name()] = room_item
             current_room.set_item(None)
     elif command == "inventory":
+
+
         while valid_input == False:
             for key,value in bag.items():
                 print(key + ": " + value.get_item_description())
