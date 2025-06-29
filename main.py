@@ -126,7 +126,7 @@ while dead == False:
     room_item = current_room.get_item()
     if inhabitant is not None:
         inhabitant.describe()
-    if room_item is not None:
+    elif room_item is not None:
         room_item.describe()
     command = input("> ")
     
@@ -140,11 +140,6 @@ while dead == False:
             current_room = current_room.move(command)
         else: 
             print("You can't leave, there is an enemy in the room!")
-    elif room_item is not None:
-        if command == "take":
-            print(f"You put the {room_item.get_item_name()} in your bag")
-            bag[room_item.get_item_name()] = room_item
-            current_room.set_item(None)
     elif inhabitant is not None:
         if command == "talk":
             inhabitant.talk()
@@ -172,6 +167,11 @@ while dead == False:
                 inhabitant.pat()
         else:
             print("Please enter a valid command")
+    elif room_item is not None:
+        if command == "take":
+            print(f"You put the {room_item.get_item_name()} in your bag")
+            bag[room_item.get_item_name()] = room_item
+            current_room.set_item(None)
     elif command == "inventory":
         while valid_input == False:
             for key,value in bag.items():

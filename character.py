@@ -74,11 +74,10 @@ class Enemy(Character):
                     player_health = 0
                 print(f"You are on {player_health} HP")
                 print(f"The enemy is on {self.enemy_hp} HP")
-        if player_health <= 0:
+        if player_health == 0:
             return False, 0
         else:
             self.enemy_hp = self.enemy_full_hp
-            print("Player health: ", player_health) 
             return True, player_health
             
 class Friend(Character):
