@@ -110,7 +110,9 @@ key.set_item_description("I wonder what this opens")
 main_hallway.set_item(key)
 
 #Coding room messages 
-entrance.set_message("Hello")
+entrance.set_message("""
+WEST - THE PATH OF THE WISE
+EAST - THE PATH OF PROGRESS""")
 
 player_health = 100
 player_damage = 10
@@ -134,14 +136,13 @@ while dead == False:
     current_room.get_details()
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
-    room_message = current_room.get_message()
     if inhabitant is not None:
         inhabitant.describe()
     else:
         if room_item is not None:
             room_item.describe()
-        if room_message is not None:
-            print(room_message.get_message())
+        if current_room.message is not None:
+            print("There's a message left in the room! Type [read] to view the message!")
     print("Type [Help] for a list of commands!")
     command = input("> ")
     
@@ -162,6 +163,9 @@ GENERAL COMMANDS:
 [fight] - Begins a fight if there is an enemy in the room
 [take] - Stores an item in your inventory if there is one in the room
 """)
+        input("Press enter to leave.")
+    elif command == "read":
+        print(current_room.get_message())
         input("Press enter to leave.")
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
