@@ -5,6 +5,7 @@ class Room:
         self.linked_rooms = {}
         self.character = None
         self.item = None
+        self.message = None
 
     def get_description(self):
         return self.description
@@ -23,6 +24,12 @@ class Room:
 
     def get_item(self):
         return self.item
+
+    def set_message(self, message):
+        self.message = message
+
+    def get_message(self):
+        return self.message
 
     def describe(self):
         print(self.description)

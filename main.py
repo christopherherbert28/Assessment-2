@@ -109,6 +109,9 @@ key = Item("Golden Key", "KEY")
 key.set_item_description("I wonder what this opens")
 main_hallway.set_item(key)
 
+#Coding room messages 
+entrance.set_message("Hello")
+
 player_health = 100
 player_damage = 10
 sword_damage = 2
@@ -131,10 +134,14 @@ while dead == False:
     current_room.get_details()
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
+    room_message = current_room.get_message()
     if inhabitant is not None:
         inhabitant.describe()
-    elif room_item is not None:
-        room_item.describe()
+    else:
+        if room_item is not None:
+            room_item.describe()
+        if room_message is not None:
+            print(room_message.get_message())
     print("Type [Help] for a list of commands!")
     command = input("> ")
     
@@ -149,7 +156,7 @@ FIGHTING:
 THERE ARE TWO ATTACK TYPES: [heavy] and [light]
 [heavy] - 3x damage with a 50% success rate
 [light] - 1x damage with a 100% success rate
-              
+
 GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
@@ -194,8 +201,7 @@ GENERAL COMMANDS:
             bag[room_item.get_item_name()] = room_item
             current_room.set_item(None)
     elif command == "inventory":
-
-
+        #NOTE: add functionality if inventory is empty
         while valid_input == False:
             for key,value in bag.items():
                 print(key + ": " + value.get_item_description())
