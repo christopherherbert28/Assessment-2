@@ -110,9 +110,11 @@ key.set_item_description("I wonder what this opens")
 main_hallway.set_item(key)
 
 #Coding room messages 
-entrance.set_message("""
+entrance.set_message("""There's an inscription on the wall:
+
 WEST - THE PATH OF THE WISE
-EAST - THE PATH OF PROGRESS""")
+EAST - THE PATH OF PROGRESS
+""")
 
 player_health = 100
 player_damage = 10
@@ -139,18 +141,16 @@ while dead == False:
     if inhabitant is not None:
         inhabitant.describe()
     else:
-        if room_item is not None:
-            room_item.describe()
-        if current_room.message is not None:
-            print("There's a message left in the room! Type [read] to view the message!")
+        if current_room.message is not None or room_item is not None:
+            print("There's something to inspect in this room.")
     print("Type [Help] for a list of commands!")
     command = input("> ")
     
     if command == "Help":
         print("""
-HELP MENU            
+HELP MENU  
 MOVEMENT:
-YOU CAN MOVE BETWEEN ROOMS USING COMPASS DIRECTIONS (i.e. north, south, east, west)
+YOU CAN MOVE BETWEEN ROOMS USING COMPASS DIRECTIONS (i.e. [north], [south], [east], [west])
 N.B. YOU CAN'T LEAVE A ROOM IF THERE IS AN ENEMY PRESENT.
 
 FIGHTING:
@@ -162,11 +162,30 @@ GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
 [take] - Stores an item in your inventory if there is one in the room
+[inspect] - Inspects the room if there is something there (i.e. a message or any detail)
+              
+(COMMANDS CAN BE USED BY TYPING THE KEYWORDS SHOWN)          
 """)
         input("Press enter to leave.")
-    elif command == "read":
-        print(current_room.get_message())
-        input("Press enter to leave.")
+    elif command == "inspect":
+        if current_room.message is not None:
+            print(current_room.get_message())
+            input("Press enter to leave.")
+        elif room_item is not None:
+            print("There's an item here!")
+            room_item.describe()
+            print("\nType [take] to store the item or press enter to leave!")
+            while command != "" or command != "take":
+                command = input("> ")
+                if command == "take":
+                    print(f"You put the {room_item.get_item_name()} in your bag")
+                    bag[room_item.get_item_name()] = room_item
+                    current_room.set_item(None)
+                elif command == "":
+                    pass
+                else:
+                    print("Invalid input.")
+                    print("Type [take] to store the item or press enter to leave!")
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
@@ -199,52 +218,48 @@ GENERAL COMMANDS:
                 print(f"{inhabitant.name} does not wish to fight.")
         else:
             print("Please enter a valid command")
-    elif room_item is not None:
-        if command == "take":
-            print(f"You put the {room_item.get_item_name()} in your bag")
-            bag[room_item.get_item_name()] = room_item
-            current_room.set_item(None)
     elif command == "inventory":
-        #NOTE: add functionality if inventory is empty
-        while valid_input == False:
-            for key,value in bag.items():
-                print(key + ": " + value.get_item_description())
-            print("Which item would you like to access? (Type none to exit)")
-            command = input("> ")
-
-            if command in bag:
-                choice_key = command
-                choice_item = bag[command]
-                print("What would you like to do?")
-                print("Type [inspect] to see the item's description.")
-                print("Type [use] to use the selected item.")
+        if bag == {}:
+            print("Your inventory is empty.")
+        else:
+            while valid_input == False:
+                for key,value in bag.items():
+                    print(key + ": " + value.get_item_description())
+                print("Which item would you like to access? (Type none to exit)")
                 command = input("> ")
-                if command == "inspect":
-                    choice_item.describe()
-                    valid_input = True
-                elif command == "use":
-                    if choice_item.get_item_type() == "KEY":
-                        if current_room.get_name() == "Boss Passage":
+                if command in bag:
+                    choice_key = command
+                    choice_item = bag[command]
+                    print("What would you like to do?")
+                    print("Type [inspect] to see the item's description.")
+                    print("Type [use] to use the selected item.")
+                    command = input("> ")
+                    if command == "inspect":
+                        choice_item.describe()
+                        valid_input = True
+                    elif command == "use":
+                        if choice_item.get_item_type() == "KEY":
+                            if current_room.get_name() == "Boss Passage":
+                                print(f"You use the [{choice_item.get_item_name()}]!")
+                                door_lock = False
+                                del bag[choice_key]
+                            else:
+                                print("You can't use that here.")
+                        elif choice_item.get_item_type() == "CONSUMABLE":
                             print(f"You use the [{choice_item.get_item_name()}]!")
-                            door_lock = False
+                            player_health = 100
+                            print("HP maxed out.")
                             del bag[choice_key]
                         else:
-                            print("You can't use that here.")
-                    elif choice_item.get_item_type() == "CONSUMABLE":
-                        print(f"You use the [{choice_item.get_item_name()}]!")
-                        player_health = 100
-                        print("HP maxed out.")
-                        del bag[choice_key]
+                            print("You can't use that item.")
+                        valid_input = True
                     else:
-                        print("You can't use that item.")
+                        print("Invalid input.")
+                elif command == "none":
                     valid_input = True
-                else:
+                else: 
                     print("Invalid input.")
-            elif command == "none":
-                valid_input = True
-            else: 
-                print("Invalid input.")
-        valid_input = False
+            valid_input = False
     else:
         print("Please enter a valid command")
         
