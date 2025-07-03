@@ -175,7 +175,7 @@ GENERAL COMMANDS:
             print("There's an item here!")
             room_item.describe()
             print("\nType [take] to store the item or press enter to leave!")
-            while command != "" or command != "take":
+            while command != "" and command != "take":
                 command = input("> ")
                 if command == "take":
                     print(f"You put the {room_item.get_item_name()} in your bag")
@@ -225,6 +225,7 @@ GENERAL COMMANDS:
             while valid_input == False:
                 for key,value in bag.items():
                     print(key + ": " + value.get_item_description())
+                print("Type the item name to access it! (e.g. Type [Sword])")
                 print("Which item would you like to access? (Type none to exit)")
                 command = input("> ")
                 if command in bag:
