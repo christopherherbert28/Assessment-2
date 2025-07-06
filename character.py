@@ -1,4 +1,6 @@
-import random, threading, time
+import random
+import threading
+import time
 class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
@@ -40,7 +42,7 @@ class Enemy(Character):
     def get_fight_input(self):
         global user_input
         user_input = None
-        user_input = input()
+        user_input = input("Enter something: ")
 
     def attack_round(self, damage):
         self.enemy_hp -= damage
@@ -49,8 +51,9 @@ class Enemy(Character):
         return (player_health - damage), damage
     
     def threading_function(self):
+        global input_thread
         input_thread = threading.Thread(target=self.get_fight_input)
-        input_thread = daemon = True
+        input_thread.daemon = True
         input_thread.start()
 
     def attack(self):
