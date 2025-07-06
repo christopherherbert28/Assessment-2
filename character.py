@@ -90,7 +90,8 @@ class Enemy(Character):
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
-            attack = self.attack()
+            random_deviation = random.randint(-5, 5)
+            attack = self.attack() + random_deviation
             self.attack_round(attack)
             print(f"You dealt {attack} damage!")
             """valid_input = False
