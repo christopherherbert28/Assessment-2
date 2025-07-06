@@ -138,6 +138,8 @@ while dead == False:
     current_room.get_details()
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
+    if isinstance(inhabitant) != Enemy:
+        current_room.get_directions()
     if inhabitant is not None:
         inhabitant.describe()
     else:

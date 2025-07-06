@@ -89,8 +89,6 @@ class Enemy(Character):
                 print("\033[1A\033[2K", end = "")
         return attack
         
-
-
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
@@ -99,6 +97,7 @@ class Enemy(Character):
                 print("Critical hit!")
                 attack *= 2
             attack *= player_damage
+            attack = round(attack)
             self.attack_round(attack)
             print(f"You dealt {attack} damage!")
             """valid_input = False
