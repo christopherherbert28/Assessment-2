@@ -95,7 +95,7 @@ class Enemy(Character):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
             attack = round(self.attack()/4)
-            if attack > 24:
+            if attack >= 24:
                 print("Critical hit!")
                 attack *= 2
             attack *= player_damage

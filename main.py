@@ -117,7 +117,7 @@ EAST - THE PATH OF PROGRESS
 """)
 
 player_health = 100
-player_damage = 10
+player_damage = 1
 sword_damage = 1.5
 bag = {}
 door_lock = True
@@ -203,7 +203,7 @@ GENERAL COMMANDS:
             if isinstance(inhabitant, Enemy) == True:
                 print("The fight begins!")
                 if "Sword" in bag:
-                    fight_result, player_health = inhabitant.fight(player_damage*sword_damage, player_health)
+                    fight_result, player_health = inhabitant.fight(sword_damage, player_health)
                 else: 
                     fight_result, player_health = inhabitant.fight(player_damage, player_health)
                 if fight_result == True:
