@@ -1,4 +1,4 @@
-import random
+import random, threading, time
 class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
@@ -37,16 +37,60 @@ class Enemy(Character):
         self.enemy_atk = attack_stats
         self.enemy_full_hp = health_points
 
+    def get_fight_input(self):
+        global user_input
+        user_input = None
+        user_input = input()
+
     def attack_round(self, damage):
         self.enemy_hp -= damage
 
     def defend_round(self, damage, player_health):
         return (player_health - damage), damage
+    
+    def threading_function(self):
+        input_thread = threading.Thread(target=self.get_fight_input)
+        input_thread = daemon = True
+        input_thread.start()
+
+    def attack(self):
+        print(f"{49*"|"}<0>{49*"|"}")
+        input_bar = 0
+        ascending = True
+        self.threading_function()
+        while True:
+            if user_input is not None:
+                if input_bar > 50:
+                    attack = abs(100 - input_bar)
+                else:
+                    attack = input_bar
+                attack *= 2
+                break
+            else:
+                print(input_bar*"|")
+                time.sleep(0.01)
+                if input_bar < 100 and ascending == True:
+                    input_bar += 1
+                elif input_bar == 100:
+                    input_bar -= 1
+                    ascending = False
+                elif input_bar > 0 and ascending == False:
+                    input_bar -= 1
+                elif input_bar == 0 and ascending == False:
+                    input_bar += 1 
+                    ascending = True
+                print("\033[1A\033[2K", end = "")
+        return attack
+        
+
 
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
-            valid_input = False
+            attack = self.attack()
+            self.attack_round(attack)
+            print(f"You dealt {attack} damage!")
+            """valid_input = False
             while valid_input != True:
                 print("Choose your attack type! [heavy] or [light]")
                 decision = input("> ")
@@ -65,7 +109,7 @@ class Enemy(Character):
                     self.attack_round(attack)
                     print(f"You dealt {attack} damage!")
                 else:
-                    print("Invalid input! Please type [heavy] or [light]")
+                    print("Invalid input! Please type [heavy] or [light]")"""
             #Enemy attack
             if self.enemy_hp > 0:
                 player_health, damage_dealt = self.defend_round(self.enemy_atk, player_health)
