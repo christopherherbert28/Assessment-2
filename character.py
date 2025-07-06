@@ -45,9 +45,13 @@ class Enemy(Character):
         user_input = input("Enter something: ")
 
     def attack_round(self, damage):
+        random_deviation = random.randint(-3, 3)
+        damage += random_deviation
         self.enemy_hp -= damage
 
     def defend_round(self, damage, player_health):
+        random_deviation = random.randint(-3, 3)
+        damage += random_deviation
         return (player_health - damage), damage
     
     def threading_function(self):
@@ -90,9 +94,11 @@ class Enemy(Character):
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
-            random_deviation = random.randint(-3, 3)
             attack = round(self.attack()/4)
-            attack += random_deviation
+            if attack > 24:
+                print("Critical hit!")
+                attack *= 2
+            attack *= player_damage
             self.attack_round(attack)
             print(f"You dealt {attack} damage!")
             """valid_input = False

@@ -118,7 +118,7 @@ EAST - THE PATH OF PROGRESS
 
 player_health = 100
 player_damage = 10
-sword_damage = 2
+sword_damage = 1.5
 bag = {}
 door_lock = True
 
