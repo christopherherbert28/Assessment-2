@@ -95,7 +95,7 @@ class Enemy(Character):
         enemy_attack = random.random()*5
         print(f"[{self.name}] Attack -> {enemy_attack:.2f} seconds")
         start = time.time()
-        defence = input()
+        defence = input(f"Press enter in {enemy_attack:.2f} seconds")
         end = time.time()
         timing = end-start
         print(f"Time elapsed: {timing:.2f} seconds")
@@ -112,6 +112,8 @@ class Enemy(Character):
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
+            print("\nATTACKING ROUND\n")
+            time.sleep(1)
             attack = round(self.attack()/4)
             if attack >= 24:
                 print("Critical hit!")
@@ -119,17 +121,22 @@ class Enemy(Character):
             attack *= player_damage
             attack = round(attack)
             self.attack_round(attack)
+            time.sleep(1)
             print(f"You dealt {attack} damage!")
             #Enemy attack
             if self.enemy_hp > 0:
+                print("\nDEFENDING ROUND\n")
+                time.sleep(1)
                 defence = self.defend()
                 if defence > 1:
                     defence = 1
                 enemy_damage = round(self.enemy_atk*defence)
                 player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
+                time.sleep(1)
                 print(f"The enemy dealt {damage_dealt} damage!")
                 if player_health < 0: 
                     player_health = 0
+                time.sleep(1)
                 print(f"You are on {player_health} HP")
                 print(f"The enemy is on {self.enemy_hp} HP")
         if player_health == 0:

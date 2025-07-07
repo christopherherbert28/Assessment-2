@@ -107,7 +107,7 @@ storage.set_item(health_potion)
 
 key = Item("Golden Key", "KEY")
 key.set_item_description("I wonder what this opens")
-main_hallway.set_item(key)
+key_room.set_item(key)
 
 #Coding room messages 
 entrance.set_message("""There's an inscription on the wall:
