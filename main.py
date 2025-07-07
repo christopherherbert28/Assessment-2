@@ -76,20 +76,20 @@ key_passage.link_room(key_room, "south")
 key_room.link_room(key_passage, "north")
 
 #Coding the Enemy
-lower_demon = Enemy("LOWER DEMON", "A low-class demon", 30, 10)
+lower_demon = Enemy("LOWER DEMON", "A low-class demon", 30, 20)
 west_passage.set_character(lower_demon)
 east_passage.set_character(lower_demon)
 
-upper_demon = Enemy("UPPER DEMON", "An upper-class demon", 80,10)
+upper_demon = Enemy("UPPER DEMON", "An upper-class demon", 80, 25)
 main_hallway.set_character(upper_demon)
 
-gargoyle = Enemy("GARGOYLE", "The castle sentry", 45, 20)
+gargoyle = Enemy("GARGOYLE", "The castle sentry", 50, 30)
 balcony.set_character(gargoyle)
 
-undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 25)
+undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 40)
 key_passage.set_character(undead_knight)
 
-demon_king = Enemy("THE DEMON KING", "The final boss", 200, 50)
+demon_king = Enemy("THE DEMON KING", "The final boss", 200, 100)
 grand_hall.set_character(demon_king)
 
 jester = Friend("Jester", "The castle Jester")

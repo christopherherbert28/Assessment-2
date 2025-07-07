@@ -91,16 +91,19 @@ class Enemy(Character):
     
     def defend(self):
         print("Time your enter press with the attack of the enemy!")
-        time.sleep(1)
+        time.sleep(2)
         enemy_attack = random.random()*5
         print(f"[{self.name}] Attack -> {enemy_attack:.2f} seconds")
         start = time.time()
-        defence = input("> ")
+        defence = input()
         end = time.time()
         timing = end-start
         print(f"Time elapsed: {timing:.2f} seconds")
         defence = abs(timing-enemy_attack)
-        print(f"You blocked the attack with {defence*100:.0f}% efficiency!")
+        if defence < 1:
+            print(f"You blocked the attack with {1-defence*100:.0f}% efficiency!")
+        else:
+            print("You missed!")
         return defence
         
     def fight(self, player_damage, player_health):
