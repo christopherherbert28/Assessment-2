@@ -121,7 +121,6 @@ class Enemy(Character):
             attack *= player_damage
             attack = round(attack)
             self.attack_round(attack)
-            time.sleep(1)
             print(f"You dealt {attack} damage!")
             #Enemy attack
             if self.enemy_hp > 0:
@@ -132,13 +131,14 @@ class Enemy(Character):
                     defence = 1
                 enemy_damage = round(self.enemy_atk*defence)
                 player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
-                time.sleep(1)
+                time.sleep(0.5)
                 print(f"The enemy dealt {damage_dealt} damage!")
                 if player_health < 0: 
                     player_health = 0
                 time.sleep(1)
                 print(f"You are on {player_health} HP")
                 print(f"The enemy is on {self.enemy_hp} HP")
+                time.sleep(0.5)
         if player_health == 0:
             return False, 0
         else:

@@ -116,6 +116,9 @@ WEST - THE PATH OF THE WISE
 EAST - THE PATH OF PROGRESS
 """)
 
+prison_cell.set_message("""Something catches your eye in a crack in the wall... 
+a [Golden Key] glistens in the room beyond.""")
+
 player_health = 100
 player_damage = 1
 sword_damage = 1.5
@@ -161,11 +164,20 @@ N.B. YOU CAN'T LEAVE A ROOM IF THERE IS AN ENEMY PRESENT.
 FIGHTING:
 (ATTACKING)
 TO ATTACK THE ENEMY, TIME YOUR ENTER PRESS WITH THE CENTRE <0> OF THE BAR SHOWN:
-||||||||||||||||||||||||||||||||||||||||||||||||<0>||||||||||||||||||||||||||||||||||||||||||||||||
+    ||||||||||||||||||||||||||||||||||||||||||||||||<0>||||||||||||||||||||||||||||||||||||||||||||||||
 
 THE CLOSER THE ATTACK IS TO THE CENTRE, THE MORE DAMAGE IT DOES!
-ATTACKS THAT ARE TIMED IN THE CENTRE ARE CRITICAL HITS - CRITICAL HITS DO 2X DAMAGE.
+ATTACKS THAT ARE TIMED IN THE CENTRE ARE CRITICAL HITS - CRITICAL HITS DO 2X DAMAGE!
+              
+(DEFENDING)
+TO DEFEND AGAINST THE ENEMY, TIME YOUR ENTER PRESS TO THE TIME SPECIFIED BY THE ENEMY'S ATTACK.
+EXAMPLE: 
+    [LOWER DEMON] Attack -> 1.51 seconds
+    YOU MUST WAIT 1.51 SECONDS THEN PRESS ENTER
 
+THE CLOSER YOUR TIMING IS TO THE ENEMY'S ATTACK, THE LESS DAMAGE YOU TAKE.
+TIMING WITHIN 0.1 SECONDS OF THE ATTACK RESULTS IN A PERFECT BLOCK - NO DAMAGE TAKEN!   
+                         
 GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
