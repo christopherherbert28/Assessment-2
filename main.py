@@ -98,10 +98,10 @@ key_room.set_character(jester)
 
 #Coding items 
 sword = Item("Sword", "WEAPON")
-sword.set_item_description("A simple silver sword")
+sword.set_item_description("Multiplies damage output by 1.5x")
 weapon_room.set_item(sword)
 
-health_potion = Item("Health potion", "CONSUMABLE")
+health_potion = Item("Health Potion", "CONSUMABLE")
 health_potion.set_item_description("Heals 100 HP")
 storage.set_item(health_potion)
 
@@ -260,7 +260,7 @@ GENERAL COMMANDS:
                 print("Type the item name to access it! (e.g. Type [Sword])")
                 print("Which item would you like to access? (Type none to exit)")
                 command = input("> ")
-                command = command.lower()
+                command = command.title()
                 if command in bag:
                     choice_key = command
                     choice_item = bag[command]
