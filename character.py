@@ -90,7 +90,7 @@ class Enemy(Character):
         return attack
     
     def defend(self):
-        print("Time your enter press with the attack of the enemy!")
+        print("Time your enter press with the attack of the enemy!\n")
         time.sleep(2)
         enemy_attack = random.random()*5
         print(f"[{self.name}] Attack -> {enemy_attack:.2f} seconds")
@@ -100,13 +100,14 @@ class Enemy(Character):
         timing = end-start
         print(f"Time elapsed: {timing:.2f} seconds")
         defence = abs(timing-enemy_attack)
+        time.sleep(0.25)
         if defence < 1 and defence > 0.1:
-            print(f"You blocked the attack with {100-defence*100:.0f}% efficiency!")
+            print(f"You blocked the attack with {100-defence*100:.0f}% efficiency!\n")
         elif defence <= 0.1:
-            print("Perfect block!")
+            print("Perfect block!\n")
             defence = 0
         else:
-            print("You missed!")
+            print("You missed!\n")
         return defence
         
     def fight(self, player_damage, player_health):
@@ -116,11 +117,13 @@ class Enemy(Character):
             time.sleep(1)
             attack = round(self.attack()/4)
             if attack >= 24:
+                time.sleep(0.25)
                 print("Critical hit!")
                 attack *= 2
             attack *= player_damage
             attack = round(attack)
             self.attack_round(attack)
+            time.sleep(0.25)
             print(f"You dealt {attack} damage!")
             #Enemy attack
             if self.enemy_hp > 0:
@@ -132,7 +135,7 @@ class Enemy(Character):
                 enemy_damage = round(self.enemy_atk*defence)
                 player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
                 time.sleep(0.5)
-                print(f"The enemy dealt {damage_dealt} damage!")
+                print(f"The enemy dealt {damage_dealt} damage!\n")
                 if player_health < 0: 
                     player_health = 0
                 time.sleep(1)
