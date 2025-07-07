@@ -149,8 +149,9 @@ while dead == False:
             print("There's something to inspect in this room.")
     print("Type [Help] for a list of commands!")
     command = input("> ")
+    command = command.lower()
     
-    if command == "Help":
+    if command == "help":
         print("""
 HELP MENU  
 MOVEMENT:
@@ -241,6 +242,7 @@ GENERAL COMMANDS:
                 print("Type the item name to access it! (e.g. Type [Sword])")
                 print("Which item would you like to access? (Type none to exit)")
                 command = input("> ")
+                command = command.lower()
                 if command in bag:
                     choice_key = command
                     choice_item = bag[command]

@@ -100,8 +100,11 @@ class Enemy(Character):
         timing = end-start
         print(f"Time elapsed: {timing:.2f} seconds")
         defence = abs(timing-enemy_attack)
-        if defence < 1:
-            print(f"You blocked the attack with {1-defence*100:.0f}% efficiency!")
+        if defence < 1 and defence > 0.1:
+            print(f"You blocked the attack with {100-defence*100:.0f}% efficiency!")
+        elif defence <= 0.1:
+            print("Perfect block!")
+            defence = 0
         else:
             print("You missed!")
         return defence
