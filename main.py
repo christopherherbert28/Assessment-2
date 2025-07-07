@@ -141,6 +141,8 @@ while dead == False:
     if isinstance(inhabitant, Enemy) == False:
         current_room.get_directions()
     if inhabitant is not None:
+        if isinstance(inhabitant, Enemy) == True:
+            print("— ENEMY ENCOUNTER —")
         inhabitant.describe()
     else:
         if current_room.message is not None or room_item is not None:
@@ -156,9 +158,12 @@ YOU CAN MOVE BETWEEN ROOMS USING COMPASS DIRECTIONS (i.e. [north], [south], [eas
 N.B. YOU CAN'T LEAVE A ROOM IF THERE IS AN ENEMY PRESENT.
 
 FIGHTING:
-THERE ARE TWO ATTACK TYPES: [heavy] and [light]
-[heavy] - 3x damage with a 50% success rate
-[light] - 1x damage with a 100% success rate
+(ATTACKING)
+TO ATTACK THE ENEMY, TIME YOUR ENTER PRESS WITH THE CENTRE <0> OF THE BAR SHOWN:
+||||||||||||||||||||||||||||||||||||||||||||||||<0>||||||||||||||||||||||||||||||||||||||||||||||||
+
+THE CLOSER THE ATTACK IS TO THE CENTRE, THE MORE DAMAGE IT DOES!
+ATTACKS THAT ARE TIMED IN THE CENTRE ARE CRITICAL HITS - CRITICAL HITS DO 2X DAMAGE.
 
 GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
@@ -188,6 +193,8 @@ GENERAL COMMANDS:
                 else:
                     print("Invalid input.")
                     print("Type [take] to store the item or press enter to leave!")
+        else:
+            print("There's nothing to inspect in this room.")
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
@@ -211,6 +218,10 @@ GENERAL COMMANDS:
                 if fight_result == True:
                     print(f"You defeated {inhabitant.name}!")
                     print(f"Player health: [{player_health} HP]")
+                    if inhabitant.name == "THE DEMON KING":
+                        print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE")
+                        print("CONGRATULATIONS! YOU BEAT THE GAME!")
+                        dead = True
                     current_room.set_character(None)
                 else:
                     print(f"{inhabitant.name} defeated you.")

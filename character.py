@@ -61,7 +61,7 @@ class Enemy(Character):
         input_thread.start()
 
     def attack(self):
-        print(f"{49*"|"}<0>{49*"|"}")
+        print(f"{48*"|"}<0>{48*"|"}")
         input_bar = 0
         ascending = True
         self.threading_function()
@@ -88,6 +88,20 @@ class Enemy(Character):
                     ascending = True
                 print("\033[1A\033[2K", end = "")
         return attack
+    
+    def defend(self):
+        print("Time your enter press with the attack of the enemy!")
+        time.sleep(1)
+        enemy_attack = random.random()*5
+        print(f"[{self.name}] Attack -> {enemy_attack.:2f} seconds")
+        start = time.time()
+        defence = input("> ")
+        end = time.time()
+        timing = end-start
+        print(f"Time elapsed: {timing.:2f} seconds")
+        defence = abs(timing-enemy_attack)
+        print(f"You blocked the attack with {defence*100}% efficiency!")
+        return defence
         
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
@@ -100,29 +114,13 @@ class Enemy(Character):
             attack = round(attack)
             self.attack_round(attack)
             print(f"You dealt {attack} damage!")
-            """valid_input = False
-            while valid_input != True:
-                print("Choose your attack type! [heavy] or [light]")
-                decision = input("> ")
-                if decision == "heavy":
-                    valid_input = True
-                    if random.random() < 0.5:
-                        attack = player_damage*3
-                        self.attack_round(attack)
-                        print("A heavy swing!")
-                        print(f"You dealt {attack} damage!")
-                    else:
-                        print("You missed!")
-                elif decision == "light":
-                    valid_input = True
-                    attack = player_damage
-                    self.attack_round(attack)
-                    print(f"You dealt {attack} damage!")
-                else:
-                    print("Invalid input! Please type [heavy] or [light]")"""
             #Enemy attack
             if self.enemy_hp > 0:
-                player_health, damage_dealt = self.defend_round(self.enemy_atk, player_health)
+                defence = self.defend()
+                if defence > 1:
+                    defence = 1
+                enemy_damage = self.enemy_atk*defence
+                player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
                 print(f"The enemy dealt {damage_dealt} damage!")
                 if player_health < 0: 
                     player_health = 0
