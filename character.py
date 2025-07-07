@@ -93,14 +93,14 @@ class Enemy(Character):
         print("Time your enter press with the attack of the enemy!")
         time.sleep(1)
         enemy_attack = random.random()*5
-        print(f"[{self.name}] Attack -> {enemy_attack.:2f} seconds")
+        print(f"[{self.name}] Attack -> {enemy_attack:.2f} seconds")
         start = time.time()
         defence = input("> ")
         end = time.time()
         timing = end-start
-        print(f"Time elapsed: {timing.:2f} seconds")
+        print(f"Time elapsed: {timing:.2f} seconds")
         defence = abs(timing-enemy_attack)
-        print(f"You blocked the attack with {defence*100}% efficiency!")
+        print(f"You blocked the attack with {defence*100:.0f}% efficiency!")
         return defence
         
     def fight(self, player_damage, player_health):
@@ -119,7 +119,7 @@ class Enemy(Character):
                 defence = self.defend()
                 if defence > 1:
                     defence = 1
-                enemy_damage = self.enemy_atk*defence
+                enemy_damage = round(self.enemy_atk*defence)
                 player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
                 print(f"The enemy dealt {damage_dealt} damage!")
                 if player_health < 0: 
