@@ -117,7 +117,8 @@ EAST - THE PATH OF PROGRESS
 """)
 
 prison_cell.set_message("""Something catches your eye in a crack in the wall... 
-a [Golden Key] glistens in the room beyond.""")
+a [Golden Key] glistens in the room beyond.
+""")
 
 player_health = 100
 player_damage = 1
@@ -139,18 +140,18 @@ time.sleep(3)
 while dead == False:
     print("\n")
     current_room.get_details()
-    print("\n")
+    print()
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
     if isinstance(inhabitant, Enemy) == False:
         current_room.get_directions()
     if inhabitant is not None:
         if isinstance(inhabitant, Enemy) == True:
-            print("— ENEMY ENCOUNTER —")
+            print("— ENEMY ENCOUNTER —\n")
         inhabitant.describe()
     else:
         if current_room.message is not None or room_item is not None:
-            print("There's something to inspect in this room.")
+            print("\nThere's something to inspect in this room.")
     print("\nType [Help] for a list of commands!")
     command = input("> ")
     command = command.lower()
