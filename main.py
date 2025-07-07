@@ -5,40 +5,40 @@ import time
 
 #Defining rooms
 entrance = Room("Entrance")
-entrance.set_description("A small, stone-walled room.")
+entrance.set_description("The start of your quest of vengence...\nA small, stone-walled room surrounded by passageways")
 
 west_passage = Room("West Passage")
-west_passage.set_description("A passageway to the west.")
+west_passage.set_description("A passageway to the west...\nA tight corridor illuminated by a single chandelier")
 
 east_passage = Room("East Passage")
-east_passage.set_description("A passageway to the east.")
+east_passage.set_description("A passageway to the east...\nA tight corridor illuminated by a single chandelier")
 
 weapon_room = Room("Weapon Room")
-weapon_room.set_description("A silver sword lays on the floor, beckoning your wielding.")
+weapon_room.set_description("The skeleton of a dead knight lays on the floor...\nA murky weapon's chamber")
 
 boss_passage = Room("Boss Passage")
-boss_passage.set_description("The way to the Demon King.")
+boss_passage.set_description("The way to the Demon King...\nA lavishly decorated passage to the castle's ruler brightly lit by candle light")
 
 grand_hall = Room("Grand Hall")
-grand_hall.set_description("Where the Demon King lies.")
+grand_hall.set_description("Where the Demon King lies...\nA huge royal hall with the Demon King's throne in the centre")
 
 main_hallway = Room("Main Hallway")
-main_hallway.set_description("The castle's main hallway.")
+main_hallway.set_description("The castle's main hallway...\nA wide hallway connecting the castle's northern and southern sections")
 
 storage = Room("Storage")
-storage.set_description("A storage room.")
+storage.set_description("A storage room...\nBoxes lay around haphazardly on the floor")
 
 prison_cell = Room("Prison Cell")
-prison_cell.set_description("A prison cell - something gleams through a crack in the wall.")
+prison_cell.set_description("A prison cell...\nScratches and cracks are littered over the walls from those it contained")
 
 balcony = Room("Balcony")
-balcony.set_description("The desolate landscape left in ruins reminds you of your objective.")
+balcony.set_description("A balcony overseeing the landscape...\nThe desolate landscape left in ruins reminds you of your objective")
 
 key_passage = Room("North Passage")
-key_passage.set_description("A passageway in the north.")
+key_passage.set_description("A passageway in the north...\nA corridor lined in alternating suits of armor and torch-light")
 
 key_room = Room("Empty Room?")
-key_room.set_description("A golden key lies on the floor.")
+key_room.set_description("A seemingly empty room...\nThe room is dimly lit by a crack in the wall")
 
 #Linking rooms
 entrance.link_room(west_passage, "west")
@@ -228,7 +228,7 @@ GENERAL COMMANDS:
             inhabitant.talk()
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
-                time.sleep(1)
+                time.sleep(0.5)
                 print("The fight begins!")
                 if "Sword" in bag:
                     fight_result, player_health = inhabitant.fight(sword_damage, player_health)

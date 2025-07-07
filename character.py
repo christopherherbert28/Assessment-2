@@ -113,6 +113,7 @@ class Enemy(Character):
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
+            time.sleep(1)
             print("\nATTACKING ROUND\n")
             time.sleep(1)
             attack = round(self.attack()/4)
@@ -140,7 +141,6 @@ class Enemy(Character):
                 time.sleep(1)
                 print(f"You are on {player_health} HP")
                 print(f"The enemy is on {self.enemy_hp} HP")
-                time.sleep(0.5)
         if player_health == 0:
             return False, 0
         else:
