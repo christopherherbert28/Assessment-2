@@ -117,14 +117,13 @@ class Enemy(Character):
             time.sleep(1)
             attack = round(self.attack()/4)
             if attack >= 24:
-                time.sleep(0.25)
                 print("Critical hit!")
                 attack *= 2
             attack *= player_damage
             attack = round(attack)
             self.attack_round(attack)
-            time.sleep(0.25)
-            print(f"You dealt {attack} damage!")
+            print(f"You dealt {attack} damage!\n")
+            time.sleep(1)
             #Enemy attack
             if self.enemy_hp > 0:
                 print("\nDEFENDING ROUND\n")

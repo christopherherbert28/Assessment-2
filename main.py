@@ -139,6 +139,7 @@ time.sleep(3)
 while dead == False:
     print("\n")
     current_room.get_details()
+    print("\n")
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
     if isinstance(inhabitant, Enemy) == False:
@@ -150,7 +151,7 @@ while dead == False:
     else:
         if current_room.message is not None or room_item is not None:
             print("There's something to inspect in this room.")
-    print("Type [Help] for a list of commands!")
+    print("\nType [Help] for a list of commands!")
     command = input("> ")
     command = command.lower()
     
@@ -188,6 +189,7 @@ GENERAL COMMANDS:
 """)
         input("Press enter to leave.")
     elif command == "inspect":
+        print("\n")
         if current_room.message is not None:
             print(current_room.get_message())
             input("Press enter to leave.")
@@ -206,12 +208,14 @@ GENERAL COMMANDS:
                 else:
                     print("Invalid input.")
                     print("Type [take] to store the item or press enter to leave!")
+                    time.sleep(1)
         else:
             print("There's nothing to inspect in this room.")
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
-                print("The door is locked. You can't go there.")
+                print("\nThe door is locked. You can't go there.")
+                time.sleep(1)
             else: 
                 current_room = current_room.move(command)
         elif inhabitant is None or isinstance(inhabitant, Friend) == True:
@@ -223,6 +227,7 @@ GENERAL COMMANDS:
             inhabitant.talk()
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
+                time.sleep(1)
                 print("The fight begins!")
                 if "Sword" in bag:
                     fight_result, player_health = inhabitant.fight(sword_damage, player_health)
