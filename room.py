@@ -1,3 +1,5 @@
+import time
+
 class Room:
     def __init__(self, room_name):
         self.name = room_name
@@ -45,7 +47,9 @@ class Room:
 
     def get_details(self):
         print(self.get_name())
+        time.sleep(1)
         print(self.get_description())
+        time.sleep(2)
 
     def get_directions(self):
         for direction in self.linked_rooms:
