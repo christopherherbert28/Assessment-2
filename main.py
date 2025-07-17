@@ -192,13 +192,14 @@ GENERAL COMMANDS:
 """)
         input("Press enter to leave.")
     elif command == "inspect":
-        print("\n")
+        print()
         if current_room.message is not None:
             print(current_room.get_message())
             input("Press enter to leave.")
         elif room_item is not None:
-            print("There's an item here!")
+            print("There's an item here!\n")
             room_item.describe()
+            print()
             print("Type [take] to store the item or press enter to leave!")
             while command != "" and command != "take":
                 command = input("> ")
