@@ -93,7 +93,6 @@ demon_king = Enemy("THE DEMON KING", "The final boss", 200, 80)
 grand_hall.set_character(demon_king)
 
 jester = Friend("Jester", "The castle Jester")
-jester.set_conversation("Gidday")
 key_room.set_character(jester)
 
 #Coding items 
