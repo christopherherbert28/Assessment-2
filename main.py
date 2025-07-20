@@ -155,7 +155,7 @@ while dead == False:
             print(f"\nType [talk] to talk with [{inhabitant.name}]")
     elif current_room.message is not None or room_item is not None:
         print("\nThere's something to inspect in this room.")
-    print("\nType [Help] for a list of commands!")
+    print("\nType [help] for a list of commands!")
     command = input("> ")
     command = command.lower()
     print()
@@ -264,14 +264,14 @@ GENERAL COMMANDS:
                     print(f"\n[{inhabitant.name} says]: You have what you need... now run off and die already! Ahahaha~!\n")
             else:
                 print("You cannot talk to an enemy.")
+                time.sleep(1)
         elif command == "check":
-            print(f"""[{inhabitant.name}] STATISTICS
-    HP {inhabitant.enemy_hp}
-    ATK {inhabitant.enemy_atk}
+            print(f"""[{inhabitant.name}]
+HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
 """)
             input("Press enter to leave.")
         elif command == "fight":
-            if isinstance(inhabitant, Enemy) == True:
+            if inhabitant is not None and isinstance(inhabitant, Special_Enemy) == False:
                 time.sleep(0.5)
                 print("The fight begins!")
                 if "Sword" in inventory:

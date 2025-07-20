@@ -28,7 +28,7 @@ class Enemy(Character):
     def get_fight_input(self):
         global user_input
         user_input = None
-        user_input = input("Enter something: ")
+        user_input = input()
 
     def attack_round(self, damage):
         random_deviation = random.randint(-3, 3)
@@ -196,31 +196,28 @@ class Special_Enemy(Enemy):
         return self.aggression
     
     def fight(self):
-        while self.enemy_hp > 0 and player_health > 0:
-            #Player attack
-            time.sleep(1)
-            print("\nATTACKING ROUND\n")
-            time.sleep(1)
-            self.attack()
-            print(f"[{self.name}] dodged!")
-            time.sleep(0.5)
-            print("You missed!")
-            time.sleep(1)
-            #Enemy attack
-            if self.enemy_hp > 0:
-                print("\nDEFENDING ROUND\n")
-                time.sleep(1)
-                self.defend()
-                print(f"[{self.name}] bypasses your block regardless!")
-                enemy_damage = 100
-                player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
-                time.sleep(0.5)
-                print(f"The enemy dealt {damage_dealt} damage!\n")
-                if player_health < 0: 
-                    player_health = 0
-                time.sleep(1)
-                print(f"You are on {player_health} HP")
-                print(f"The enemy is on {self.enemy_hp} HP")
+        #Player attack
+        time.sleep(1)
+        print("\nATTACKING ROUND\n")
+        time.sleep(1)
+        self.attack()
+        print(f"[{self.name}] dodged!")
+        time.sleep(0.5)
+        print("You missed!")
+        time.sleep(1)
+        #Enemy attack
+        print("\nDEFENDING ROUND\n")
+        time.sleep(1)
+        self.defend()
+        print(f"[{self.name}] bypasses your block regardless!")
+        enemy_damage = 100
+        player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
+        time.sleep(0.5)
+        print(f"The enemy dealt {damage_dealt} damage!\n")
+        player_health = 0
+        time.sleep(1)
+        print(f"You are on {player_health} HP")
+        print(f"The enemy is on ??? HP")
         
 
         
