@@ -33,11 +33,16 @@ class Enemy(Character):
     def attack_round(self, damage):
         random_deviation = random.randint(-3, 3)
         damage += random_deviation
+        if damage < 0:
+            damage = 0
         self.enemy_hp -= damage
 
     def defend_round(self, damage, player_health):
-        random_deviation = random.randint(-3, 3)
-        damage += random_deviation
+        if damage > 0:
+            random_deviation = random.randint(-3, 3)
+            damage += random_deviation
+        else:
+            damage = 0
         return (player_health - damage), damage
     
     def threading_function(self):
