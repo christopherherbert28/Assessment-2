@@ -196,12 +196,12 @@ GENERAL COMMANDS:
         if "Sword" in inventory:
             print(f"""PLAYER STATISTICS
               
-HP {player_health}/100
-WEAPON: Sword
-ENEMIES KILLED: {kill_count}
+    HP {player_health}/100
+    WEAPON: Sword
+    ENEMIES KILLED: {kill_count}
 """)
         else:
-            print(f"""PLAYER              
+            print(f"""PLAYER STATISTICS             
     
     HP {player_health}/100
     WEAPON: None
