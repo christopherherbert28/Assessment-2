@@ -89,7 +89,7 @@ balcony.set_character(gargoyle)
 undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 40)
 key_passage.set_character(undead_knight)
 
-demon_king = Enemy("THE DEMON KING", "The final boss", 200, 100)
+demon_king = Enemy("THE DEMON KING", "The final boss", 200, 80)
 grand_hall.set_character(demon_king)
 
 jester = Friend("Jester", "The castle Jester")
@@ -123,8 +123,9 @@ a [Golden Key] glistens in the room beyond.
 player_health = 100
 player_damage = 1
 sword_damage = 1.5
-bag = {}
+inventory = {}
 door_lock = True
+kill_count = 0
 
 current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
@@ -187,9 +188,24 @@ GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
 [inspect] - Inspects the room if there is something there (i.e. a message or any detail)
+[stats] - Opens up the players stats including HP, equipped weapon, etc.
               
-(COMMANDS CAN BE USED BY TYPING THE KEYWORDS SHOWN)          
+(COMMANDS CAN BE USED BY TYPING THE KEYWORDS SHOWN BY [] - NOTE: TYPE COMMANDS WITHOUT THE ENCASING [])          
 """)
+        input("Press enter to leave.")
+    elif command == "stats":    
+        if "Sword" in inventory:
+            print(f"""PLAYER
+              
+HP {player_health}/100
+WEAPON: Sword
+ENEMIES KILLED: {kill_count}""")
+        else:
+            print(f"""PLAYER
+              
+HP {player_health}/100
+WEAPON: None
+ENEMIES KILLED: {kill_count}""")
         input("Press enter to leave.")
     elif command == "inspect":
         print()
@@ -204,8 +220,8 @@ GENERAL COMMANDS:
             while command != "" and command != "take":
                 command = input("> ")
                 if command == "take":
-                    print(f"You put the {room_item.get_item_name()} in your bag")
-                    bag[room_item.get_item_name()] = room_item
+                    print(f"You put the {room_item.get_item_name()} in your inventory")
+                    inventory[room_item.get_item_name()] = room_item
                     current_room.set_item(None)
                 elif command == "":
                     pass
@@ -235,11 +251,12 @@ GENERAL COMMANDS:
             if isinstance(inhabitant, Enemy) == True:
                 time.sleep(0.5)
                 print("The fight begins!")
-                if "Sword" in bag:
+                if "Sword" in inventory:
                     fight_result, player_health = inhabitant.fight(sword_damage, player_health)
                 else: 
                     fight_result, player_health = inhabitant.fight(player_damage, player_health)
                 if fight_result == True:
+                    kill_count += 1
                     print(f"You defeated {inhabitant.name}!")
                     print(f"Player health: [{player_health} HP]")
                     if inhabitant.name == "THE DEMON KING":
@@ -259,40 +276,41 @@ GENERAL COMMANDS:
             print("Please enter a valid command")
             time.sleep(1)
     elif command == "inventory":
-        if bag == {}:
+        if inventory == {}:
             print("Your inventory is empty.")
             time.sleep(1)
         else:
             while valid_input == False:
-                for key,value in bag.items():
+                for key,value in inventory.items():
                     print(key + ": " + value.get_item_description())
                 print("\nType the item name to access it! (e.g. Type [Sword])")
                 print("Which item would you like to access? (Type none to exit)")
                 command = input("> ")
                 command = command.title()
-                if command in bag:
+                if command in inventory:
                     choice_key = command
-                    choice_item = bag[command]
+                    choice_item = inventory[command]
                     print("What would you like to do?\n")
                     print("Type [inspect] to see the item's description.")
                     print("Type [use] to use the selected item.")
                     command = input("> ")
                     if command == "inspect":
                         choice_item.describe()
+                        input("Press enter to leave.")
                         valid_input = True
                     elif command == "use":
                         if choice_item.get_item_type() == "KEY":
                             if current_room.get_name() == "Boss Passage":
                                 print(f"You use the [{choice_item.get_item_name()}]!")
                                 door_lock = False
-                                del bag[choice_key]
+                                del inventory[choice_key]
                             else:
                                 print("You can't use that here.")
                         elif choice_item.get_item_type() == "CONSUMABLE":
                             print(f"You use the [{choice_item.get_item_name()}]!")
                             player_health = 100
                             print("HP maxed out.")
-                            del bag[choice_key]
+                            del inventory[choice_key]
                         else:
                             print("You can't use that item.")
                         valid_input = True

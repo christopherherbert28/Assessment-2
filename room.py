@@ -47,7 +47,6 @@ class Room:
 
     def get_details(self):
         print(self.get_name())
-        time.sleep(1)
         print(self.get_description())
 
     def get_directions(self):
