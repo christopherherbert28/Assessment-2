@@ -138,9 +138,57 @@ class Special_Enemy(Enemy):
         super().__init(char_name, char_description, health_points, attack_stats)
         self.aggression = 0
 
+    def talk_validation(self, command):
+        possible_options = ["1", "2", "3"]
+        while command not in possible_options:
+            print("Please enter either [1], [2] or [3].")
+            command = input("> ")
+        return command
+        
     def talk(self):
-        print(f"[{self.name} says]: ")
-
+        key = False
+        print(f"[{self.name} says]: Greetings PLAYER! What brings you round these parts?\n")
+        time.sleep(1)
+        print("[1] - I'm here to take revenge for the destruction of my town.")
+        print("[2] - I'm here to kill your kind.")
+        print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
+        while True:
+            command = input("> ")
+            command = self.talk_validation(command)
+            if command == "1":
+                print(f"\n[{self.name} says]: Ohoho, I remember your town... NOT! [THE DEMON KING] has ruined many towns.\n")
+            elif command == "2":
+                print(f"\n[{self.name} says]: Bloodthirsty! No wonder you defeated so many demons already - even though they were weak! Ahahaha~!\n")
+            elif command == "3":
+                break
+            time.sleep(1)
+            print("[1] - I saw a [Golden Key] here... do you have it?")
+            print("[2] - Just give me the [Golden Key] scum.")
+            print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
+            command = input("> ")
+            command = self.talk_validation(command)
+            if command == "1":
+                print(f"\n[{self.name} says]: Yes, yes I do. But why would you think you need it?\n")
+            elif command == "2":
+                print(f"\n[{self.name} says]: Scary stuff! Do you even know what it's for?\n")
+            elif command == "3":
+                break
+            time.sleep(1)
+            print("[1] - It opens the [Grand Hall].")
+            print("[2] - I mean it's an item so it's probably important.")
+            print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
+            if command == "1":
+                print(f"\n[{self.name} says]: Correct! Just to reward your foolishness, I will give you the [Golden Key] so you can die not-so happily at the hands of my King. Ahahaha~!\n")
+                input("Press enter to leave.")
+                key = True
+            elif command == "2":
+                print(f"\n[{self.name} says]: Ahahaha~! For such humour I will give you the [Golden Key]! It opens the door to the [Grand Hall] where you will meet my King.\n")
+                input("Press enter to leave.")
+                key = True
+            elif command == "3":
+                break
+        return key
+    
     def set_aggression(self, aggression):
         self.aggression = aggression
 

@@ -92,7 +92,7 @@ key_passage.set_character(undead_knight)
 demon_king = Enemy("THE DEMON KING", "The final boss", 200, 80)
 grand_hall.set_character(demon_king)
 
-jingles = Special_Enemy("Jingles", "The castle Jester", "???", "???")
+jingles = Special_Enemy("JINGLES", "The castle Jester", "???", "???")
 key_room.set_character(jingles)
 
 #Coding items 
@@ -148,14 +148,13 @@ while dead == False:
     if inhabitant is not None:
         if isinstance(inhabitant, Enemy) == True:
             print("— ENEMY ENCOUNTER —\n")
+            inhabitant.describe()
         else:
             print("— FRIENDLY ENCOUNTER —\n")
-        inhabitant.describe()
-    if current_room.message is not None or room_item is not None:
-        if isinstance(inhabitant, Enemy) == True:
-            pass
-        else:
-            print("\nThere's something to inspect in this room.")
+            inhabitant.describe()
+            print(f"\nType [talk] to talk with [{inhabitant.name}]")
+    elif current_room.message is not None or room_item is not None:
+        print("\nThere's something to inspect in this room.")
     print("\nType [Help] for a list of commands!")
     command = input("> ")
     command = command.lower()
@@ -217,22 +216,26 @@ GENERAL COMMANDS:
             print(current_room.get_message())
             input("Press enter to leave.")
         elif room_item is not None:
-            print("There's an item here!\n")
-            room_item.describe()
-            print()
-            print("Type [take] to store the item or press enter to leave!")
-            while command != "" and command != "take":
-                command = input("> ")
-                if command == "take":
-                    print(f"You put the {room_item.get_item_name()} in your inventory")
-                    inventory[room_item.get_item_name()] = room_item
-                    current_room.set_item(None)
-                elif command == "":
-                    pass
-                else:
-                    print("Invalid input.")
-                    print("Type [take] to store the item or press enter to leave!")
-                    time.sleep(1)
+            if room_item.get_item_name() == "Golden Key":
+                print("There's nothing to inspect in this room.")
+                time.sleep(1)
+            else:
+                print("There's an item here!\n")
+                room_item.describe()
+                print()
+                print("Type [take] to store the item or press enter to leave!")
+                while command != "" and command != "take":
+                    command = input("> ")
+                    if command == "take":
+                        print(f"You put the [{room_item.get_item_name()}] in your inventory")
+                        inventory[room_item.get_item_name()] = room_item
+                        current_room.set_item(None)
+                    elif command == "":
+                        pass
+                    else:
+                        print("Invalid input.")
+                        print("Type [take] to store the item or press enter to leave!")
+                        time.sleep(1)
         else:
             print("There's nothing to inspect in this room.")
             time.sleep(1)
@@ -248,10 +251,25 @@ GENERAL COMMANDS:
         else: 
             print("You can't leave, there is an enemy in the room!")
             time.sleep(1)
-    elif inhabitant is not None:
-        if isinstance(inhabitant, Special_Enemy) == True:
-            if command == "talk":
-                inhabitant.talk()
+    elif inhabitant is not None:    
+        if command == "talk":
+            if isinstance(inhabitant, Special_Enemy) == True:
+                if conversation == False:
+                    conversation = inhabitant.talk()
+                    if conversation == True:
+                        print(f"You got the [{room_item.get_item_name()}]!")
+                        inventory[room_item.get_item_name()] = room_item
+                        current_room.set_item(None)
+                else:
+                    print(f"\n[{inhabitant.name} says]: You have what you need... now run off and die already! Ahahaha~!\n")
+            else:
+                print("You cannot talk to an enemy.")
+        elif command == "check":
+            print(f"""[{inhabitant.name}] STATISTICS
+    HP {inhabitant.enemy_hp}
+    ATK {inhabitant.enemy_atk}
+""")
+            input("Press enter to leave.")
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
                 time.sleep(0.5)
