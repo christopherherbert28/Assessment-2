@@ -187,24 +187,26 @@ GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
 [inspect] - Inspects the room if there is something there (i.e. a message or any detail)
-[stats] - Opens up the players stats including HP, equipped weapon, etc.
+[stats] - Opens up the players stats including HP, equipped weapon and enemies killed
               
 (COMMANDS CAN BE USED BY TYPING THE KEYWORDS SHOWN BY [] - NOTE: TYPE COMMANDS WITHOUT THE ENCASING [])          
 """)
         input("Press enter to leave.")
     elif command == "stats":    
         if "Sword" in inventory:
-            print(f"""PLAYER
+            print(f"""PLAYER STATISTICS
               
 HP {player_health}/100
 WEAPON: Sword
-ENEMIES KILLED: {kill_count}""")
+ENEMIES KILLED: {kill_count}
+""")
         else:
-            print(f"""PLAYER
-              
-HP {player_health}/100
-WEAPON: None
-ENEMIES KILLED: {kill_count}""")
+            print(f"""PLAYER              
+    
+    HP {player_health}/100
+    WEAPON: None
+    ENEMIES KILLED: {kill_count}
+""")
         input("Press enter to leave.")
     elif command == "inspect":
         print()
