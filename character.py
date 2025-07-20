@@ -182,14 +182,18 @@ class Special_Enemy(Enemy):
             print("[1] - It opens the [Grand Hall].")
             print("[2] - I mean it's an item so it's probably important.")
             print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
+            command = input("> ")
+            command = self.talk_validation(command)
             if command == "1":
                 print(f"\n[{self.name} says]: Correct! Just to reward your foolishness, I will give you the [Golden Key] so you can die not-so happily at the hands of my King. Ahahaha~!\n")
                 input("Press enter to leave.")
                 key = True
+                break
             elif command == "2":
                 print(f"\n[{self.name} says]: Ahahaha~! For such humour I will give you the [Golden Key]! It opens the door to the [Grand Hall] where you will meet my King.\n")
                 input("Press enter to leave.")
                 key = True
+                break
             elif command == "3":
                 break
         return key

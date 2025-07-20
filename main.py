@@ -124,9 +124,10 @@ player_damage = 1
 sword_damage = 1.5
 inventory = {}
 door_lock = True
+conversation = False
 kill_count = 0
 
-current_room = entrance
+current_room = key_room
 possible_directions = ["west", "east", "north", "south"]
 dead = False
 valid_input = False
@@ -146,13 +147,13 @@ while dead == False:
     if isinstance(inhabitant, Enemy) == False:
         current_room.get_directions()
     if inhabitant is not None:
-        if isinstance(inhabitant, Enemy) == True:
-            print("— ENEMY ENCOUNTER —\n")
-            inhabitant.describe()
-        else:
+        if isinstance(inhabitant, Special_Enemy) == True:
             print("— FRIENDLY ENCOUNTER —\n")
             inhabitant.describe()
             print(f"\nType [talk] to talk with [{inhabitant.name}]")
+        else:
+            print("— ENEMY ENCOUNTER —\n")
+            inhabitant.describe()
     elif current_room.message is not None or room_item is not None:
         print("\nThere's something to inspect in this room.")
     print("\nType [help] for a list of commands!")
