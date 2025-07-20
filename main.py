@@ -89,7 +89,7 @@ balcony.set_character(gargoyle)
 undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 40)
 key_passage.set_character(undead_knight)
 
-demon_king = Enemy("THE DEMON KING", "The final boss", 200, 80)
+demon_king = Enemy("THE DEMON KING", "The final boss", 200, 100)
 grand_hall.set_character(demon_king)
 
 jingles = Special_Enemy("JINGLES", "The castle Jester", "???", "???")
