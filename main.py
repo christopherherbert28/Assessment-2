@@ -211,6 +211,59 @@ GENERAL COMMANDS:
     ENEMIES KILLED: {kill_count}
 """)
         input("Press enter to leave.")
+    elif command == "inventory":
+        if inventory == {}:
+            print("Your inventory is empty.")
+            time.sleep(1)
+        else:
+            while valid_input == False:
+                for key,value in inventory.items():
+                    print(key + ": " + value.get_item_description())
+                print("\nType the item name to access it! (e.g. Type [Sword])")
+                print("Which item would you like to access? (Type none to exit)")
+                command = input("> ")
+                command = command.title()
+                if command in inventory:
+                    choice_key = command
+                    choice_item = inventory[command]
+                    print("What would you like to do?\n")
+                    print("Type [inspect] to see the item's description.")
+                    print("Type [use] to use the selected item.")
+                    command = input("> ")
+                    if command == "inspect":
+                        choice_item.describe()
+                        input("Press enter to leave.")
+                        valid_input = True
+                    elif command == "use":
+                        if choice_item.get_item_type() == "KEY":
+                            if current_room.get_name() == "Boss Passage":
+                                print(f"You use the [{choice_item.get_item_name()}]!")
+                                time.sleep(1)
+                                door_lock = False
+                                del inventory[choice_key]
+                            else:
+                                print("You can't use that here.")
+                                time.sleep(1)
+                        elif choice_item.get_item_type() == "CONSUMABLE":
+                            print(f"You use the [{choice_item.get_item_name()}]!")
+                            time.sleep(1)
+                            player_health = 100
+                            print("HP maxed out.")
+                            time.sleep(1)
+                            del inventory[choice_key]
+                        else:
+                            print("You can't use that item.")
+                            time.sleep(1)
+                        valid_input = True
+                    else:
+                        print("Invalid input.")
+                        time.sleep(1)
+                elif command == "none":
+                    valid_input = True
+                else: 
+                    print("Invalid input.")
+                    time.sleep(1)
+            valid_input = False
     elif command == "inspect":
         print()
         if current_room.message is not None:
@@ -259,6 +312,7 @@ GENERAL COMMANDS:
                     conversation = inhabitant.talk()
                     if conversation == True:
                         print(f"You got the [{room_item.get_item_name()}]!")
+                        time.sleep(1)
                         inventory[room_item.get_item_name()] = room_item
                         current_room.set_item(None)
                 else:
@@ -322,59 +376,6 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
             time.sleep(1)
     elif command == "fight":
         print("There's no one here to fight.")
-    elif command == "inventory":
-        if inventory == {}:
-            print("Your inventory is empty.")
-            time.sleep(1)
-        else:
-            while valid_input == False:
-                for key,value in inventory.items():
-                    print(key + ": " + value.get_item_description())
-                print("\nType the item name to access it! (e.g. Type [Sword])")
-                print("Which item would you like to access? (Type none to exit)")
-                command = input("> ")
-                command = command.title()
-                if command in inventory:
-                    choice_key = command
-                    choice_item = inventory[command]
-                    print("What would you like to do?\n")
-                    print("Type [inspect] to see the item's description.")
-                    print("Type [use] to use the selected item.")
-                    command = input("> ")
-                    if command == "inspect":
-                        choice_item.describe()
-                        input("Press enter to leave.")
-                        valid_input = True
-                    elif command == "use":
-                        if choice_item.get_item_type() == "KEY":
-                            if current_room.get_name() == "Boss Passage":
-                                print(f"You use the [{choice_item.get_item_name()}]!")
-                                time.sleep(1)
-                                door_lock = False
-                                del inventory[choice_key]
-                            else:
-                                print("You can't use that here.")
-                                time.sleep(1)
-                        elif choice_item.get_item_type() == "CONSUMABLE":
-                            print(f"You use the [{choice_item.get_item_name()}]!")
-                            time.sleep(1)
-                            player_health = 100
-                            print("HP maxed out.")
-                            time.sleep(1)
-                            del inventory[choice_key]
-                        else:
-                            print("You can't use that item.")
-                            time.sleep(1)
-                        valid_input = True
-                    else:
-                        print("Invalid input.")
-                        time.sleep(1)
-                elif command == "none":
-                    valid_input = True
-                else: 
-                    print("Invalid input.")
-                    time.sleep(1)
-            valid_input = False
     else:
         print("Please enter a valid command")
         time.sleep(1)

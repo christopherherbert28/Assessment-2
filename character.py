@@ -187,11 +187,13 @@ class Special_Enemy(Enemy):
             if command == "1":
                 print(f"\n[{self.name} says]: Correct! Just to reward your foolishness, I will give you the [Golden Key] so you can die not-so happily at the hands of my King. Ahahaha~!\n")
                 input("Press enter to leave.")
+                time.sleep(0.5)
                 key = True
                 break
             elif command == "2":
                 print(f"\n[{self.name} says]: Ahahaha~! For such humour I will give you the [Golden Key]! It opens the door to the [Grand Hall] where you will meet my King.\n")
                 input("Press enter to leave.")
+                time.sleep(0.5)
                 key = True
                 break
             elif command == "3":
@@ -212,20 +214,17 @@ class Special_Enemy(Enemy):
         self.attack()
         print(f"[{self.name}] dodged!")
         time.sleep(0.5)
-        print("You missed!")
+        print("You dealt 0 damage!\n")
         time.sleep(1)
         #Enemy attack
         print("\nDEFENDING ROUND\n")
         time.sleep(1)
         self.defend()
         print(f"[{self.name}] bypasses your block regardless!")
-        enemy_damage = 100
-        player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
         time.sleep(0.5)
-        print(f"The enemy dealt {damage_dealt} damage!\n")
-        player_health = 0
+        print(f"The enemy dealt 100 damage!\n")
         time.sleep(1)
-        print(f"You are on {player_health} HP")
+        print(f"You are on 0 HP")
         print(f"The enemy is on ??? HP")
         
 
