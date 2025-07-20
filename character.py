@@ -5,7 +5,6 @@ class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
         self.description = char_description
-        self.conversation = None
 
     #Description of Character
 
@@ -134,15 +133,46 @@ class Enemy(Character):
             self.enemy_hp = self.enemy_full_hp
             return True, player_health
             
-class Friend(Character):
-    def __init__(self, char_name, char_description):
-        super().__init__(char_name, char_description)
+class Special_Enemy(Enemy):
+    def __init__(self, char_name, char_description, health_points, attack_stats):
+        super().__init(char_name, char_description, health_points, attack_stats)
+        self.aggression = 0
 
     def talk(self):
-        if self.conversation is not None:
-            print(f"[{self.name} says]: {self.conversation}")
-        else:
-            print(f"{self.name} doesn't want to talk to you")
+        print(f"[{self.name} says]: ")
+
+    def set_aggression(self, aggression):
+        self.aggression = aggression
+
+    def get_aggression(self):
+        return self.aggression
+    
+    def fight(self):
+        while self.enemy_hp > 0 and player_health > 0:
+            #Player attack
+            time.sleep(1)
+            print("\nATTACKING ROUND\n")
+            time.sleep(1)
+            self.attack()
+            print(f"[{self.name}] dodged!")
+            time.sleep(0.5)
+            print("You missed!")
+            time.sleep(1)
+            #Enemy attack
+            if self.enemy_hp > 0:
+                print("\nDEFENDING ROUND\n")
+                time.sleep(1)
+                self.defend()
+                print(f"[{self.name}] bypasses your block regardless!")
+                enemy_damage = 100
+                player_health, damage_dealt = self.defend_round(enemy_damage, player_health)
+                time.sleep(0.5)
+                print(f"The enemy dealt {damage_dealt} damage!\n")
+                if player_health < 0: 
+                    player_health = 0
+                time.sleep(1)
+                print(f"You are on {player_health} HP")
+                print(f"The enemy is on {self.enemy_hp} HP")
         
 
         

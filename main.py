@@ -1,5 +1,5 @@
 from room import Room
-from character import Friend, Enemy
+from character import Special_Enemy, Enemy
 from item import Item
 import time
 
@@ -92,8 +92,8 @@ key_passage.set_character(undead_knight)
 demon_king = Enemy("THE DEMON KING", "The final boss", 200, 80)
 grand_hall.set_character(demon_king)
 
-jester = Friend("Jester", "The castle Jester")
-key_room.set_character(jester)
+jingles = Special_Enemy("Jingles", "The castle Jester", "???", "???")
+key_room.set_character(jingles)
 
 #Coding items 
 sword = Item("Sword", "WEAPON")
@@ -148,6 +148,8 @@ while dead == False:
     if inhabitant is not None:
         if isinstance(inhabitant, Enemy) == True:
             print("— ENEMY ENCOUNTER —\n")
+        else:
+            print("— FRIENDLY ENCOUNTER —\n")
         inhabitant.describe()
     if current_room.message is not None or room_item is not None:
         if isinstance(inhabitant, Enemy) == True:
@@ -186,6 +188,7 @@ TIMING WITHIN 0.1 SECONDS OF THE ATTACK RESULTS IN A PERFECT BLOCK - NO DAMAGE T
 GENERAL COMMANDS:
 [inventory] - Opens your inventory where you can see and access your items
 [fight] - Begins a fight if there is an enemy in the room
+[check] - Allows you to see the stats of an enemy before fighting them
 [inspect] - Inspects the room if there is something there (i.e. a message or any detail)
 [stats] - Opens up the players stats including HP, equipped weapon and enemies killed
               
@@ -240,14 +243,15 @@ GENERAL COMMANDS:
                 time.sleep(1)
             else: 
                 current_room = current_room.move(command)
-        elif inhabitant is None or isinstance(inhabitant, Friend) == True:
+        elif inhabitant is None or isinstance(inhabitant, Special_Enemy) == True:
             current_room = current_room.move(command)
         else: 
             print("You can't leave, there is an enemy in the room!")
             time.sleep(1)
     elif inhabitant is not None:
-        if command == "talk":
-            inhabitant.talk()
+        if isinstance(inhabitant, Special_Enemy) == True:
+            if command == "talk":
+                inhabitant.talk()
         elif command == "fight":
             if isinstance(inhabitant, Enemy) == True:
                 time.sleep(0.5)
@@ -260,8 +264,10 @@ GENERAL COMMANDS:
                     kill_count += 1
                     print(f"You defeated {inhabitant.name}!")
                     print(f"Player health: [{player_health} HP]")
+                    time.sleep(1)
                     if inhabitant.name == "THE DEMON KING":
                         print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE")
+                        time.sleep(1.5)
                         print("CONGRATULATIONS! YOU BEAT THE GAME!")
                         dead = True
                     current_room.set_character(None)
@@ -271,11 +277,32 @@ GENERAL COMMANDS:
                     print("Game over!")
                     dead = True
             else:
-                print(f"{inhabitant.name} does not wish to fight.")
-                time.sleep(1)
+                if inhabitant.get_aggression() = 0:
+                    print(f"[{inhabitant.name} says]: Woah there, I'm not here to fight.")
+                    time.sleep(1)
+                    inhabitant.set_aggression(20)
+                elif inhabitant.get_aggression() = 20:
+                    print(f"[{inhabitant.name} says]: You better chill out.")
+                    time.sleep(1)
+                    inhabitant.set_aggression(50)
+                elif inhabitant.get_aggression() = 50:
+                    print(f"[{inhabitant.name} says]: I'm warning you. You don't want to fight me.")
+                    time.sleep(1)
+                    inhabitant.set_aggression(100)
+                elif inhabitant.get_aggression() = 100:
+                    print(f"[{inhabitant.name} says]: Don't say I didn't warn you.")
+                    time.sleep(0.5)
+                    print("The fight begins!")
+                    inhabitant.fight()
+                    print(f"{inhabitant.name} defeated you.")
+                    time.sleep(1)
+                    print("Game over!")
+                    dead = True     
         else:
             print("Please enter a valid command")
             time.sleep(1)
+    elif command == "fight":
+        print("There's no one here to fight.")
     elif command == "inventory":
         if inventory == {}:
             print("Your inventory is empty.")
@@ -303,25 +330,33 @@ GENERAL COMMANDS:
                         if choice_item.get_item_type() == "KEY":
                             if current_room.get_name() == "Boss Passage":
                                 print(f"You use the [{choice_item.get_item_name()}]!")
+                                time.sleep(1)
                                 door_lock = False
                                 del inventory[choice_key]
                             else:
                                 print("You can't use that here.")
+                                time.sleep(1)
                         elif choice_item.get_item_type() == "CONSUMABLE":
                             print(f"You use the [{choice_item.get_item_name()}]!")
+                            time.sleep(1)
                             player_health = 100
                             print("HP maxed out.")
+                            time.sleep(1)
                             del inventory[choice_key]
                         else:
                             print("You can't use that item.")
+                            time.sleep(1)
                         valid_input = True
                     else:
                         print("Invalid input.")
+                        time.sleep(1)
                 elif command == "none":
                     valid_input = True
                 else: 
                     print("Invalid input.")
+                    time.sleep(1)
             valid_input = False
     else:
         print("Please enter a valid command")
+        time.sleep(1)
         
