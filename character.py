@@ -135,7 +135,7 @@ class Enemy(Character):
             
 class Special_Enemy(Enemy):
     def __init__(self, char_name, char_description, health_points, attack_stats):
-        super().__init(char_name, char_description, health_points, attack_stats)
+        super().__init__(char_name, char_description, health_points, attack_stats)
         self.aggression = 0
 
     def talk_validation(self, command):
