@@ -1,7 +1,8 @@
 import random
 import threading
 import time
-from main import clear_screen
+from clear_screen import clear_screen
+
 class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name

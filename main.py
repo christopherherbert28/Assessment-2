@@ -2,14 +2,7 @@ from room import Room
 from character import Special_Enemy, Enemy
 from item import Item
 import time
-from os import system, name
-
-#Clear screen function for between rooms
-def clear_screen():
-    if name == "nt":
-        system("cls")
-    else:
-        system("clear")
+from clear_screen import clear_screen
 
 #Defining rooms
 entrance = Room("Entrance")
