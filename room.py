@@ -62,7 +62,7 @@ class Room:
             clear_screen()
             return self.linked_rooms[direction]
         else: 
-            print("You can't go that way")
+            print("You can't go that way.")
             time.sleep(1)
             return self
 
