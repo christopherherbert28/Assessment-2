@@ -128,7 +128,7 @@ door_lock = True
 conversation = False
 kill_count = 0
 
-current_room = key_room
+current_room = entrance
 possible_directions = ["west", "east", "north", "south"]
 dead = False
 valid_input = False
@@ -147,11 +147,11 @@ while dead == False:
     print()
     inhabitant = current_room.get_character()
     room_item = current_room.get_item()
-    if isinstance(inhabitant, Enemy) == False:
+    if isinstance(inhabitant, Enemy) == False or isinstance(inhabitant, Special_Enemy) == True:
         current_room.get_directions()
     if inhabitant is not None:
         if isinstance(inhabitant, Special_Enemy) == True:
-            print("— FRIENDLY ENCOUNTER —\n")
+            print("\n— FRIENDLY ENCOUNTER —\n")
             inhabitant.describe()
             print(f"\nType [talk] to talk with [{inhabitant.name}]")
         else:
