@@ -275,7 +275,7 @@ GENERAL COMMANDS:
         elif room_item is not None:
             if room_item.get_item_name() == "Golden Key":
                 print("There's nothing to inspect in this room.")
-                time.sleep(2)
+                time.sleep(1)
             else:
                 print("There's an item here!\n")
                 time.sleep(1)
@@ -296,7 +296,7 @@ GENERAL COMMANDS:
                         time.sleep(2)
         else:
             print("There's nothing to inspect in this room.")
-            time.sleep(2)
+            time.sleep(1)
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
