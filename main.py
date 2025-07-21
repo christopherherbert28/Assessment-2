@@ -132,6 +132,8 @@ current_room = key_room
 possible_directions = ["west", "east", "north", "south"]
 dead = False
 valid_input = False
+
+clear_screen()
 print("WELCOME TO THE GAME...")
 time.sleep(2)
 print("YOUR TOWN HAS BEEN DESTROYED BY THE DEMON KING - NOW YOU HAVE COME FOR REVENGE")

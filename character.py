@@ -168,7 +168,7 @@ class Special_Enemy(Enemy):
             if command == 2:
                 break
             clear_screen()
-            print(f"\n[PLAYER says]: {dialogue_options[option]}")
+            print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
             if command == 0:
                 print(f"\n[{self.name} says]: Ohoho, I remember your town... NOT! [THE DEMON KING] has ruined many towns.\n")
@@ -184,7 +184,7 @@ class Special_Enemy(Enemy):
             if command == 2:
                 break
             clear_screen()
-            print(f"\n[PLAYER says]: {dialogue_options[option]}")
+            print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
             if command == 2:
                 print(f"\n[{self.name} says]: Yes, yes I do. But why would you think you need it?\n")
@@ -200,7 +200,7 @@ class Special_Enemy(Enemy):
             if command == 2:
                 break
             clear_screen()
-            print(f"\n[PLAYER says]: {dialogue_options[option]}")
+            print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
             if command == 0:
                 print(f"\n[{self.name} says]: Correct! For such foolishness, I have no qualms enabling your unhappy death at the hands of my King. Ahahaha~!\n")
