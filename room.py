@@ -46,9 +46,9 @@ class Room:
         self.linked_rooms[direction] = room_to_link
 
     def get_details(self):
-        time.sleep(0.25)
+        time.sleep(0.4)
         print(self.get_name())
-        time.sleep(0.5)
+        time.sleep(0.9)
         print(self.get_description())
 
     def get_directions(self):
