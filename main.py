@@ -356,19 +356,19 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     dead = True
             else:
                 if inhabitant.get_aggression() == 0:
-                    print(f"[{inhabitant.name} says]: Woah there, I'm not here to fight.")
+                    print(f"\n[{inhabitant.name} says]: Woah there, I'm not here to fight.")
                     time.sleep(2)
                     inhabitant.set_aggression(20)
                 elif inhabitant.get_aggression() == 20:
-                    print(f"[{inhabitant.name} says]: You better chill out.")
+                    print(f"\n[{inhabitant.name} says]: You better chill out.")
                     time.sleep(2)
                     inhabitant.set_aggression(50)
                 elif inhabitant.get_aggression() == 50:
-                    print(f"[{inhabitant.name} says]: I'm warning you. You don't want to fight me.")
+                    print(f"\n[{inhabitant.name} says]: I'm warning you. You don't want to fight me.")
                     time.sleep(2)
                     inhabitant.set_aggression(100)
                 elif inhabitant.get_aggression() == 100:
-                    print(f"[{inhabitant.name} says]: Don't say I didn't warn you.")
+                    print(f"\n[{inhabitant.name} says]: Don't say I didn't warn you.\n")
                     time.sleep(1.5)
                     print("The fight begins!")
                     inhabitant.fight()

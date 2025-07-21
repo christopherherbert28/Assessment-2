@@ -107,6 +107,7 @@ class Enemy(Character):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
             time.sleep(1)
+            clear_screen()
             print("\nATTACKING ROUND\n")
             time.sleep(1)
             attack = round(self.attack()/4)
@@ -120,6 +121,7 @@ class Enemy(Character):
             time.sleep(1)
             #Enemy attack
             if self.enemy_hp > 0:
+                clear_screen()
                 print("\nDEFENDING ROUND\n")
                 time.sleep(1)
                 defence = self.defend()
@@ -191,7 +193,7 @@ class Special_Enemy(Enemy):
             elif command == 1:
                 print(f"\n[{self.name} says]: Scary stuff! Do you even know what it's for?\n")
             time.sleep(2)
-            dialogue_options = ["It opens the [Grand Hall].", " I mean it's an item so it's probably important."]
+            dialogue_options = ["It opens the [Grand Hall].", "I mean it's an item so it's probably important."]
             print(f"[1] - {dialogue_options[0]}")
             print(f"[2] - {dialogue_options[1]}")
             print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
@@ -225,6 +227,7 @@ class Special_Enemy(Enemy):
     def fight(self):
         #Player attack
         time.sleep(1)
+        clear_screen()
         print("\nATTACKING ROUND\n")
         time.sleep(1)
         self.attack()
@@ -233,6 +236,7 @@ class Special_Enemy(Enemy):
         print("You dealt 0 damage!\n")
         time.sleep(1)
         #Enemy attack
+        clear_screen()
         print("\nDEFENDING ROUND\n")
         time.sleep(1)
         self.defend()
