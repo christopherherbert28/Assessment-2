@@ -2,6 +2,7 @@ from room import Room
 from character import Special_Enemy, Enemy
 from item import Item
 import time
+import os
 
 #Defining rooms
 entrance = Room("Entrance")
@@ -86,7 +87,7 @@ main_hallway.set_character(upper_demon)
 gargoyle = Enemy("GARGOYLE", "The castle sentry", 50, 30)
 balcony.set_character(gargoyle)
 
-undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 80, 40)
+undead_knight = Enemy("UNDEAD KNIGHT", "A headless knight", 120, 40)
 key_passage.set_character(undead_knight)
 
 demon_king = Enemy("THE DEMON KING", "The final boss", 200, 100)
@@ -139,7 +140,7 @@ print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.
 time.sleep(3)
 
 while dead == False:
-    print("\n")
+    os.system("cls")
     current_room.get_details()
     print()
     inhabitant = current_room.get_character()
@@ -317,6 +318,7 @@ GENERAL COMMANDS:
                         current_room.set_item(None)
                 else:
                     print(f"\n[{inhabitant.name} says]: You have what you need... now run off and die already! Ahahaha~!\n")
+                    time.sleep(1)
             else:
                 print("You cannot talk to an enemy.")
                 time.sleep(1)
