@@ -153,7 +153,7 @@ while dead == False:
         if isinstance(inhabitant, Special_Enemy) == True:
             print("\n— FRIENDLY ENCOUNTER —\n")
             inhabitant.describe()
-            print(f"\nType [talk] to talk with [{inhabitant.name}]")
+            print(f"\nType [talk] to talk with [{inhabitant.name}].")
         else:
             print("— ENEMY ENCOUNTER —\n")
             inhabitant.describe()
@@ -286,7 +286,10 @@ GENERAL COMMANDS:
                 while command != "" and command != "take":
                     command = input("> ")
                     if command == "take":
-                        print(f"You put the [{room_item.get_item_name()}] in your inventory")
+                        if room_item.get_item_name() == "Sword":
+                            print(f"You equipped the [{room_item.get_item_name()}].")
+                        else:
+                            print(f"You put the [{room_item.get_item_name()}] in your inventory.")
                         inventory[room_item.get_item_name()] = room_item
                         current_room.set_item(None)
                     elif command == "":
@@ -345,7 +348,7 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     print(f"Player health: [{player_health} HP]")
                     time.sleep(2)
                     if inhabitant.name == "THE DEMON KING":
-                        print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE")
+                        print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE.")
                         time.sleep(1.5)
                         print("CONGRATULATIONS! YOU BEAT THE GAME!")
                         dead = True
@@ -378,12 +381,12 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     print("Game over!")
                     dead = True     
         else:
-            print("Please enter a valid command")
+            print("Please enter a valid command.")
             time.sleep(1)
     elif command == "fight":
         print("There's no one here to fight.")
         time.sleep(1)
     else:
-        print("Please enter a valid command")
+        print("Please enter a valid command.")
         time.sleep(1)
         
