@@ -229,10 +229,11 @@ GENERAL COMMANDS:
                 if command in inventory:
                     choice_key = command
                     choice_item = inventory[command]
-                    print("What would you like to do?\n")
+                    print("\nWhat would you like to do?\n")
                     print("Type [inspect] to see the item's description.")
                     print("Type [use] to use the selected item.")
                     command = input("> ")
+                    print()
                     if command == "inspect":
                         choice_item.describe()
                         input("Press enter to leave.")
@@ -261,7 +262,7 @@ GENERAL COMMANDS:
                     else:
                         print("Invalid input.")
                         time.sleep(1)
-                elif command == "none":
+                elif command == "None":
                     valid_input = True
                 else: 
                     print("Invalid input.")
