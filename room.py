@@ -60,9 +60,6 @@ class Room:
     def move(self, direction):
         if direction in self.linked_rooms:
             clear_screen()
-            time.sleep(0.4)
-            print(self.get_name())
-            time.sleep(0.9)
             return self.linked_rooms[direction]
         else: 
             print("You can't go that way")
