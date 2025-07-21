@@ -34,9 +34,6 @@ class Room:
     def get_message(self):
         return self.message
 
-    def describe(self):
-        print(self.description)
-
     def get_name(self):
         return self.name
 

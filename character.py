@@ -14,12 +14,6 @@ class Character:
         print(f"{self.name} is here!")
         print(self.description)
 
-    #Fight with this Character
-
-    def fight(self):
-        print(f"{self.name} doesn't want to fight with you")
-        return True
-
 class Enemy(Character):
     def __init__(self, char_name, char_description, health_points, attack_stats):
         super().__init__(char_name, char_description)
