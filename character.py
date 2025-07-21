@@ -86,6 +86,8 @@ class Enemy(Character):
         print("Time your enter press with the attack of the enemy!\n")
         time.sleep(2)
         enemy_attack = random.random()*5
+        while enemy_attack < 0.5:
+            enemy_attack = random.random()*5
         print(f"[{self.name}] Attack -> {enemy_attack:.2f} seconds")
         start = time.time()
         defence = input(f"Press enter in {enemy_attack:.2f} seconds")
