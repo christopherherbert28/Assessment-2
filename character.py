@@ -1,6 +1,7 @@
 import random
 import threading
 import time
+from main import clear_screen
 class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
@@ -160,6 +161,7 @@ class Special_Enemy(Enemy):
         while True:
             command = input("> ")
             command = self.talk_validation(command)
+            clear_screen()
             if command == "1":
                 print(f"\n[{self.name} says]: Ohoho, I remember your town... NOT! [THE DEMON KING] has ruined many towns.\n")
             elif command == "2":
@@ -172,6 +174,7 @@ class Special_Enemy(Enemy):
             print("\nType [1] for option 1, [2] for option 2 or [3] to leave.")
             command = input("> ")
             command = self.talk_validation(command)
+            clear_screen()
             if command == "1":
                 print(f"\n[{self.name} says]: Yes, yes I do. But why would you think you need it?\n")
             elif command == "2":

@@ -2,7 +2,14 @@ from room import Room
 from character import Special_Enemy, Enemy
 from item import Item
 import time
-import os
+from os import system, name
+
+#Clear screen function for between rooms
+def clear_screen():
+    if name == "nt":
+        system("cls")
+    else:
+        system("clear")
 
 #Defining rooms
 entrance = Room("Entrance")
@@ -140,7 +147,7 @@ print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.
 time.sleep(3)
 
 while dead == False:
-    os.system("cls")
+    clear_screen()
     current_room.get_details()
     print()
     inhabitant = current_room.get_character()
@@ -161,7 +168,7 @@ while dead == False:
     command = input("> ")
     command = command.lower()
     print()
-    
+    clear_screen()
     if command == "help":
         print("""
 HELP MENU  
@@ -239,7 +246,7 @@ GENERAL COMMANDS:
                         if choice_item.get_item_type() == "KEY":
                             if current_room.get_name() == "Boss Passage":
                                 print(f"You use the [{choice_item.get_item_name()}]!")
-                                time.sleep(1)
+                                time.sleep(1.5)
                                 door_lock = False
                                 del inventory[choice_key]
                             else:
@@ -247,7 +254,7 @@ GENERAL COMMANDS:
                                 time.sleep(1)
                         elif choice_item.get_item_type() == "CONSUMABLE":
                             print(f"You use the [{choice_item.get_item_name()}]!")
-                            time.sleep(1)
+                            time.sleep(1.5)
                             player_health = 100
                             print("HP maxed out.")
                             time.sleep(1)
@@ -273,9 +280,10 @@ GENERAL COMMANDS:
         elif room_item is not None:
             if room_item.get_item_name() == "Golden Key":
                 print("There's nothing to inspect in this room.")
-                time.sleep(1)
+                time.sleep(2)
             else:
                 print("There's an item here!\n")
+                time.sleep(1)
                 room_item.describe()
                 print()
                 print("Type [take] to store the item or press enter to leave!")
@@ -290,22 +298,22 @@ GENERAL COMMANDS:
                     else:
                         print("Invalid input.")
                         print("Type [take] to store the item or press enter to leave!")
-                        time.sleep(1)
+                        time.sleep(2)
         else:
             print("There's nothing to inspect in this room.")
-            time.sleep(1)
+            time.sleep(2)
     elif command in possible_directions:
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
                 print("The door is locked. You can't go there.")
-                time.sleep(1)
+                time.sleep(1.5)
             else: 
                 current_room = current_room.move(command)
         elif inhabitant is None or isinstance(inhabitant, Special_Enemy) == True:
             current_room = current_room.move(command)
         else: 
             print("You can't leave, there is an enemy in the room!")
-            time.sleep(1)
+            time.sleep(2)
     elif inhabitant is not None:    
         if command == "talk":
             if isinstance(inhabitant, Special_Enemy) == True:
@@ -313,12 +321,12 @@ GENERAL COMMANDS:
                     conversation = inhabitant.talk()
                     if conversation == True:
                         print(f"You got the [{room_item.get_item_name()}]!")
-                        time.sleep(1)
+                        time.sleep(1.5)
                         inventory[room_item.get_item_name()] = room_item
                         current_room.set_item(None)
                 else:
                     print(f"\n[{inhabitant.name} says]: You have what you need... now run off and die already! Ahahaha~!\n")
-                    time.sleep(1)
+                    time.sleep(2)
             else:
                 print("You cannot talk to an enemy.")
                 time.sleep(1)
@@ -339,7 +347,7 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     kill_count += 1
                     print(f"You defeated {inhabitant.name}!")
                     print(f"Player health: [{player_health} HP]")
-                    time.sleep(1)
+                    time.sleep(2)
                     if inhabitant.name == "THE DEMON KING":
                         print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE")
                         time.sleep(1.5)
@@ -354,19 +362,19 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
             else:
                 if inhabitant.get_aggression() == 0:
                     print(f"[{inhabitant.name} says]: Woah there, I'm not here to fight.")
-                    time.sleep(1)
+                    time.sleep(2)
                     inhabitant.set_aggression(20)
                 elif inhabitant.get_aggression() == 20:
                     print(f"[{inhabitant.name} says]: You better chill out.")
-                    time.sleep(1)
+                    time.sleep(2)
                     inhabitant.set_aggression(50)
                 elif inhabitant.get_aggression() == 50:
                     print(f"[{inhabitant.name} says]: I'm warning you. You don't want to fight me.")
-                    time.sleep(1)
+                    time.sleep(2)
                     inhabitant.set_aggression(100)
                 elif inhabitant.get_aggression() == 100:
                     print(f"[{inhabitant.name} says]: Don't say I didn't warn you.")
-                    time.sleep(0.5)
+                    time.sleep(1.5)
                     print("The fight begins!")
                     inhabitant.fight()
                     print(f"{inhabitant.name} defeated you.")
@@ -378,6 +386,7 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
             time.sleep(1)
     elif command == "fight":
         print("There's no one here to fight.")
+        time.sleep(1)
     else:
         print("Please enter a valid command")
         time.sleep(1)
