@@ -408,6 +408,9 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
     elif command == "fight":
         print("There's no one here to fight.")
         time.sleep(1)
+    elif command == "check":
+        print("There's no one here to check.")
+        time.sleep(1)
     else:
         print("Please enter a valid command.")
         time.sleep(1)
