@@ -1,3 +1,4 @@
+#Importing from os to make the clear screen function
 from os import system, name
 
 #Clear screen function 

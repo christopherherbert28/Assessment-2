@@ -9,7 +9,6 @@ class Character:
         self.description = char_description
 
     #Description of Character
-
     def describe(self):
         print(f"{self.name} is here!")
         print(self.description)
@@ -21,11 +20,13 @@ class Enemy(Character):
         self.enemy_atk = attack_stats
         self.enemy_full_hp = health_points
 
+    #Input function for fighting
     def get_fight_input(self):
         global user_input
         user_input = None
         user_input = input()
 
+    #Applying damage to the enemy after an attack
     def attack_round(self, damage):
         random_deviation = random.randint(-3, 3)
         damage += random_deviation
@@ -33,6 +34,7 @@ class Enemy(Character):
             damage = 0
         self.enemy_hp -= damage
 
+    #Applying damage to the player after an attack
     def defend_round(self, damage, player_health):
         if damage > 0:
             random_deviation = random.randint(-3, 3)
@@ -41,12 +43,14 @@ class Enemy(Character):
             damage = 0
         return (player_health - damage), damage
     
+    #Threading function to run the user's input simultaneously with the attack bar
     def threading_function(self):
         global input_thread
         input_thread = threading.Thread(target=self.get_fight_input)
         input_thread.daemon = True
         input_thread.start()
 
+    #Combining the attack bar with the threading function to allow the user to attack
     def attack(self):
         print(f"{48*"|"}<0>{48*"|"}")
         input_bar = 0
@@ -76,6 +80,7 @@ class Enemy(Character):
                 print("\033[1A\033[2K", end = "")
         return attack
     
+    #The player's defence in the fight
     def defend(self):
         print("Time your enter press with the attack of the enemy!\n")
         time.sleep(2)
@@ -99,6 +104,7 @@ class Enemy(Character):
             print("You missed!\n")
         return defence
         
+    #The whole fighting function combining all related functions
     def fight(self, player_damage, player_health):
         while self.enemy_hp > 0 and player_health > 0:
             #Player attack
@@ -132,6 +138,7 @@ class Enemy(Character):
                 time.sleep(1.5)
                 print(f"You are on {player_health} HP")
                 print(f"The enemy is on {self.enemy_hp} HP")
+        #Checking if the player won or lost the fight
         if player_health == 0:
             return False, 0
         else:
@@ -143,6 +150,7 @@ class Special_Enemy(Enemy):
         super().__init__(char_name, char_description, health_points, attack_stats)
         self.aggression = 0
 
+    #Checking the player's input for the dialogue is valid
     def talk_validation(self, command):
         possible_options = ["1", "2", "3"]
         while command not in possible_options:
@@ -152,10 +160,12 @@ class Special_Enemy(Enemy):
         command -= 1
         return command
         
+    #The player's conversation with the special enemy (JINGLES) and dialogue options
     def talk(self):
         key = False
         print(f"[{self.name} says]: Greetings PLAYER! What brings you round these parts?\n")
         time.sleep(2)
+        #Dialogue 1
         dialogue_options = ["I'm here to take revenge for the destruction of my town.", "I'm here to kill your kind."]
         print(f"[1] - {dialogue_options[0]}")
         print(f"[2] - {dialogue_options[1]}")
@@ -168,11 +178,13 @@ class Special_Enemy(Enemy):
             clear_screen()
             print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
+            #Enemy response 1
             if command == 0:
                 print(f"\n[{self.name} says]: Ohoho, I remember your town... NOT! [THE DEMON KING] has ruined many towns.\n")
             elif command == 1:
                 print(f"\n[{self.name} says]: Bloodthirsty! No wonder you defeated so many demons already - even though they were weak! Ahahaha~!\n")
             time.sleep(3)
+            #Dialogue 2
             dialogue_options = ["I saw a [Golden Key] here... do you have it?", "Just give me the [Golden Key] scum."]
             print(f"[1] - {dialogue_options[0]}")
             print(f"[2] - {dialogue_options[1]}")
@@ -184,11 +196,13 @@ class Special_Enemy(Enemy):
             clear_screen()
             print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
+            #Enemy response 2
             if command == 2:
                 print(f"\n[{self.name} says]: Yes, yes I do. But why would you think you need it?\n")
             elif command == 1:
                 print(f"\n[{self.name} says]: Scary stuff! Do you even know what it's for?\n")
             time.sleep(2)
+            #Dialogue 3
             dialogue_options = ["It opens the [Grand Hall].", "I mean it's an item so it's probably important."]
             print(f"[1] - {dialogue_options[0]}")
             print(f"[2] - {dialogue_options[1]}")
@@ -200,6 +214,7 @@ class Special_Enemy(Enemy):
             clear_screen()
             print(f"\n[PLAYER says]: {dialogue_options[command]}")
             time.sleep(2)
+            #Enemy response 3
             if command == 0:
                 print(f"\n[{self.name} says]: Correct! For such foolishness, I have no qualms enabling your unhappy death at the hands of my King. Ahahaha~!\n")
                 input("Press enter to leave.")
@@ -214,12 +229,14 @@ class Special_Enemy(Enemy):
                 break
         return key
     
+    #Getter and setter functions for aggression to allow fighting with the special enemy (Jingles)
     def set_aggression(self, aggression):
         self.aggression = aggression
 
     def get_aggression(self):
         return self.aggression
     
+    #The unwinnable fighting function with Jingles
     def fight(self):
         #Player attack
         time.sleep(1)

@@ -1,3 +1,4 @@
+#Importing from other files and required modules
 from room import Room
 from character import Special_Enemy, Enemy
 from item import Item
@@ -76,7 +77,7 @@ key_passage.link_room(key_room, "south")
 
 key_room.link_room(key_passage, "north")
 
-#Coding the Enemy
+#Coding the enemies
 lower_demon = Enemy("LOWER DEMON", "A low-class demon", 30, 20)
 west_passage.set_character(lower_demon)
 east_passage.set_character(lower_demon)
@@ -120,6 +121,7 @@ prison_cell.set_message("""Something catches your eye in a crack in the wall...
 a [Golden Key] glistens in the room beyond.
 """)
 
+#Defining required variables
 player_health = 100
 player_damage = 1
 sword_damage = 1.5
@@ -133,6 +135,7 @@ possible_directions = ["west", "east", "north", "south"]
 dead = False
 valid_input = False
 
+#Game introduction
 clear_screen()
 print("WELCOME TO THE GAME...")
 time.sleep(2)
@@ -141,7 +144,9 @@ time.sleep(3)
 print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.")
 time.sleep(3)
 
+#Main game loop
 while dead == False:
+    #Describing the room and what's in it 
     clear_screen()
     current_room.get_details()
     print()
@@ -160,10 +165,15 @@ while dead == False:
     elif current_room.message is not None or room_item is not None:
         print("\nThere's something to inspect in this room.")
     print("\nType [help] for a list of commands!")
+
+    #Ask for user's input
     command = input("> ")
     command = command.lower()
     print()
     clear_screen()
+
+    #Determine decision based off input
+    #Help menu
     if command == "help":
         print("""
 HELP MENU  
@@ -198,6 +208,7 @@ GENERAL COMMANDS:
 (COMMANDS CAN BE USED BY TYPING THE KEYWORDS SHOWN BY [] - NOTE: TYPE COMMANDS WITHOUT THE ENCASING [])          
 """)
         input("Press enter to leave.")
+    #Stats menu
     elif command == "stats":    
         if "Sword" in inventory:
             print(f"""PLAYER STATISTICS
@@ -214,16 +225,19 @@ GENERAL COMMANDS:
     ENEMIES KILLED: {kill_count}
 """)
         input("Press enter to leave.")
+    #Inventory access
     elif command == "inventory":
         if inventory == {}:
             print("Your inventory is empty.")
             time.sleep(1)
         else:
             while valid_input == False:
+                #Displaying inventory
                 for key,value in inventory.items():
                     print(key + ": " + value.get_item_description())
                 print("\nType the item name to access it! (e.g. Type [Sword])")
                 print("Which item would you like to access? (Type none to exit)")
+                #Choosing item to access
                 command = input("> ")
                 command = command.title()
                 if command in inventory:
@@ -232,6 +246,7 @@ GENERAL COMMANDS:
                     print("\nWhat would you like to do?\n")
                     print("Type [inspect] to see the item's description.")
                     print("Type [use] to use the selected item.")
+                    #Using the chosen item
                     command = input("> ")
                     print()
                     if command == "inspect":
@@ -268,6 +283,7 @@ GENERAL COMMANDS:
                     print("Invalid input.")
                     time.sleep(1)
             valid_input = False
+    #Inspect the room for any messages or items
     elif command == "inspect":
         print()
         if current_room.message is not None:
@@ -301,7 +317,9 @@ GENERAL COMMANDS:
         else:
             print("There's nothing to inspect in this room.")
             time.sleep(1)
+    #Movement commands to move between rooms
     elif command in possible_directions:
+        #Locked boss room
         if current_room.get_name() == "Boss Passage" and command == "north":
             if door_lock == True:
                 print("The door is locked. You can't go there.")
@@ -314,6 +332,7 @@ GENERAL COMMANDS:
             print("You can't leave, there is an enemy in the room!")
             time.sleep(2)
     elif inhabitant is not None:    
+        #Dialogue with Jingles the Jester (special enemy)
         if command == "talk":
             if isinstance(inhabitant, Special_Enemy) == True:
                 if conversation == False:
@@ -329,11 +348,13 @@ GENERAL COMMANDS:
             else:
                 print("You cannot talk to an enemy.")
                 time.sleep(1)
+        #Describe enemy stats
         elif command == "check":
             print(f"""[{inhabitant.name}]
 HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
 """)
             input("Press enter to leave.")
+        #Fighting command
         elif command == "fight":
             if inhabitant is not None and isinstance(inhabitant, Special_Enemy) == False:
                 time.sleep(0.5)
@@ -359,6 +380,7 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     print("Game over!")
                     dead = True
             else:
+                #Attempting to fight Jingles the Jester (special enemy)
                 if inhabitant.get_aggression() == 0:
                     print(f"\n[{inhabitant.name} says]: Woah there, I'm not here to fight.")
                     time.sleep(2)
