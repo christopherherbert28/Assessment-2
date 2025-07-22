@@ -2,6 +2,7 @@
 import time
 from clear_screen import clear_screen
 
+#Creating the room class
 class Room:
     def __init__(self, room_name):
         self.name = room_name

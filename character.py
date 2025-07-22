@@ -3,6 +3,7 @@ import threading
 import time
 from clear_screen import clear_screen
 
+#Creating the character class
 class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
@@ -13,6 +14,7 @@ class Character:
         print(f"{self.name} is here!")
         print(self.description)
 
+#Creating the enemy class
 class Enemy(Character):
     def __init__(self, char_name, char_description, health_points, attack_stats):
         super().__init__(char_name, char_description)
@@ -145,6 +147,7 @@ class Enemy(Character):
             self.enemy_hp = self.enemy_full_hp
             return True, player_health
             
+#Creating the special enemy class
 class Special_Enemy(Enemy):
     def __init__(self, char_name, char_description, health_points, attack_stats):
         super().__init__(char_name, char_description, health_points, attack_stats)
