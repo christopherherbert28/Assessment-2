@@ -370,7 +370,7 @@ HP {inhabitant.enemy_hp}    ATK {inhabitant.enemy_atk}
                     time.sleep(2)
                     if inhabitant.name == "THE DEMON KING":
                         print("WITH THE DEMON KING DEFEATED, YOUR MISSION IS COMPLETE.")
-                        time.sleep(1.5)
+                        time.sleep(2)
                         print("CONGRATULATIONS! YOU BEAT THE GAME!")
                         dead = True
                     current_room.set_character(None)
