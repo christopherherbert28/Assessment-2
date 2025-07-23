@@ -35,6 +35,7 @@ class Enemy(Character):
         if damage < 0:
             damage = 0
         self.enemy_hp -= damage
+        return damage
 
     #Applying damage to the player after an attack
     def defend_round(self, damage, player_health):
@@ -120,7 +121,7 @@ class Enemy(Character):
                 attack *= 2
             attack *= player_damage
             attack = round(attack)
-            self.attack_round(attack)
+            attack = self.attack_round(attack)
             print(f"You dealt {attack} damage!\n")
             time.sleep(1.5)
             #Enemy attack
