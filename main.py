@@ -119,6 +119,7 @@ EAST - THE PATH OF PROGRESS
 
 prison_cell.set_message("""Something catches your eye in a crack in the wall... 
 a [Golden Key] glistens in the room beyond.
+Explore more rooms to find the key.
 """)
 
 #Defining required variables
@@ -138,11 +139,11 @@ valid_input = False
 #Game introduction
 clear_screen()
 print("WELCOME TO THE GAME...")
-time.sleep(2)
+time.sleep(3)
 print("YOUR TOWN HAS BEEN DESTROYED BY THE DEMON KING - NOW YOU HAVE COME FOR REVENGE")
-time.sleep(3)
+time.sleep(4)
 print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.")
-time.sleep(3)
+time.sleep(4)
 
 #Main game loop
 while dead == False:
