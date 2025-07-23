@@ -141,9 +141,9 @@ clear_screen()
 print("WELCOME TO THE GAME...")
 time.sleep(2)
 print("YOUR TOWN HAS BEEN DESTROYED BY THE DEMON KING - NOW YOU HAVE COME FOR REVENGE")
-time.sleep(4)
+time.sleep(3)
 print("OPENING THE CASTLE GATES, YOU ARRIVE AT THE ENTRANCE OF THE DEMON CASTLE.")
-time.sleep(4)
+time.sleep(3)
 
 #Main game loop
 while dead == False:
